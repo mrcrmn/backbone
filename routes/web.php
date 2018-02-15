@@ -2,6 +2,6 @@
 
 $router = new mrcrmn\Backbone\Router\Router;
 
-$router->get('/', 'TestController::test');
+$router->get('/', 'ExampleController::example');
 
 return $router;

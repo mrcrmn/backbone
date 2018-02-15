@@ -99,6 +99,12 @@ class Kernel implements HttpKernelInterface
         return call_user_func_array($controller, [$this->request]);
     }
 
+    /**
+     * We check if the Route is found and check if the method is allowed.
+     *
+     * @param int $statusCode
+     * @return void
+     */
     protected function resolveRouteStatusCode($statusCode)
     {
         switch ($statusCode) {
