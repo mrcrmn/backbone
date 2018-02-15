@@ -1,7 +1,7 @@
 <?php
 
-$dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $router) {
-    $router->get('/test/{param}', 'TestController::test');
-});
+$router = new mrcrmn\Backbone\Router\Router;
 
-return $dispatcher;
+$router->get('/test/{test}', 'TestController::test');
+
+return $router;

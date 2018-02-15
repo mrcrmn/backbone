@@ -8,6 +8,6 @@ class TestController
 {
     public function test(Request $request)
     {
-        dd($request);
+        return $request->attributes->get('test');
     }   
 }
