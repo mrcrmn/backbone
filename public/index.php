@@ -6,6 +6,11 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
+ * Now we'll bootstrap needed functions and debug methods.
+ */
+require_once __DIR__ . '/../bootstrap/bootstrap.php';
+
+/**
  * Next we'll create a new Symfony Request Object fromn the Globals.
  */
 $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();

@@ -11,5 +11,8 @@
             "App\\" : "app/"
         },
         "files" : ["src/resources/functions/helpers.php"]
+    },
+    "require-dev": {
+        "filp/whoops": "^2.1"
     }
 }

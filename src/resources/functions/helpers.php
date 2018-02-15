@@ -1,12 +1,12 @@
 <?php
 
-if (! function_exists('base_path')) {
+// if (! function_exists('base_path')) {
 
-    function base_path($path)
-    {
-        return __DIR__ . '/../../../' . ltrim($path, "/");
-    }
-}
+//     function base_path($path)
+//     {
+//         return __DIR__ . '/../../../' . ltrim($path, "/");
+//     }
+// }
 
 if (! function_exists('dd')) {
 
@@ -16,5 +16,14 @@ if (! function_exists('dd')) {
         var_dump($var);
         echo "</pre>";
         die();
+    }
+}
+
+
+if (!function_exists('env')) {
+
+    function env($key, $default = null)
+    {
+        return getenv($key) ?: $default;
     }
 }
