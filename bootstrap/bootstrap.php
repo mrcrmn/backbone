@@ -13,8 +13,8 @@ function base_path($path = '') {
 /**
  * Load the Environment.
  */
-$dotenv = new Dotenv\Dotenv(base_path());
-$dotenv->load();
+$dotenv = new Symfony\Component\Dotenv\Dotenv();
+$dotenv->load(base_path('.env'));
 
 /**
  * Enable Error Messages if in Debug mode.
