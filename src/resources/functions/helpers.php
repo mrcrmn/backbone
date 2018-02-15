@@ -1,17 +1,7 @@
 <?php
 
-// if (! function_exists('base_path')) {
-
-//     function base_path($path)
-//     {
-//         return __DIR__ . '/../../../' . ltrim($path, "/");
-//     }
-// }
-
 if (! function_exists('dd')) {
-
-    function dd($var)
-    {
+    function dd($var) {
         echo "<pre>";
         var_dump($var);
         echo "</pre>";
@@ -19,11 +9,15 @@ if (! function_exists('dd')) {
     }
 }
 
-
-if (!function_exists('env')) {
-
-    function env($key, $default = null)
-    {
+if (! function_exists('env')) {
+    function env($key, $default = null) {
         return getenv($key) ?: $default;
+    }
+}
+
+if (! function_exists('view')) {
+    function view($view, $data) {
+        $blade = new duncan3dc\Laravel\BladeInstance(base_path("resources/views"), base_path("storage/cache/views"));
+        return $blade->render($view, $data);
     }
 }

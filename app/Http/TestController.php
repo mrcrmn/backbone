@@ -8,6 +8,8 @@ class TestController
 {
     public function test(Request $request)
     {
-        return $request->attributes->get('test');
+        return view('test', [
+            'test' => $request->attributes->get('test')
+        ]);
     }   
 }
