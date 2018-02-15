@@ -17,7 +17,7 @@ if (! function_exists('env')) {
 
 if (! function_exists('view')) {
     function view($view, $data) {
-        $blade = new duncan3dc\Laravel\BladeInstance(base_path("resources/views"), base_path("storage/cache/views"));
+        $blade = new duncan3dc\Laravel\BladeInstance(base_path('resources/views'), base_path('storage/cache/views'));
         return $blade->render($view, $data);
     }
 }

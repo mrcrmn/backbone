@@ -46,6 +46,11 @@ class Kernel implements HttpKernelInterface
         $this->router = require_once base_path('routes/web.php');
         $routeInfo = $this->router->dispatch($this->getHttpMethod(), $this->getUri());
 
+        if (! $this->resolveRouteStatusCode($routeInfo[0])) {
+            // Todo
+            return new Response("404");
+        }
+
         $content = $this->resolveController($routeInfo);
 
         return new Response($content);
@@ -85,10 +90,32 @@ class Kernel implements HttpKernelInterface
      */
     protected function resolveController($routeInfo) {
 
-        $this->setRequestAttributes($routeInfo[2]);
+        if (isset($routeInfo[2])) {
+            $this->setRequestAttributes($routeInfo[2]);
+        }
+
         $controller = self::NAMESPACE . $routeInfo[1];
 
         return call_user_func_array($controller, [$this->request]);
+    }
+
+    protected function resolveRouteStatusCode($statusCode)
+    {
+        switch ($statusCode) {
+
+            case \FastRoute\Dispatcher::NOT_FOUND:
+                return false;
+                break;
+
+            case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+                $allowedMethods = $routeInfo[1];
+                throw new \Exception("Method not allowed. Must use {$allowedMethods}.");
+                break;
+
+            case \FastRoute\Dispatcher::FOUND:
+                return true;
+                break;
+        }
     }
 
     /**

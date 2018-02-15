@@ -6,14 +6,14 @@
         "vlucas/phpdotenv": "^2.4",
         "duncan3dc/blade": "^4.2"
     },
+    "require-dev": {
+        "filp/whoops": "^2.1"
+    },
     "autoload": {
         "psr-4" : {
             "mrcrmn\\Backbone\\" : "src/",
             "App\\" : "app/"
         },
         "files" : ["src/resources/functions/helpers.php"]
-    },
-    "require-dev": {
-        "filp/whoops": "^2.1"
     }
 }
