@@ -10,21 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CreateControllerCommand extends Command
 {
 
-    private $controllerString = '<?php
-
-namespace App\Http;
-
-use Symfony\Component\HttpFoundation\Request;
-
-class %s extends Controller
-{
-    public function example(Request $request)
-    {
-        //
-    }   
-}
-    ';
-
     public function configure()
     {
         $this
@@ -36,9 +21,19 @@ class %s extends Controller
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
-        $controllerString = sprintf($this->controllerString, $name);
 
-        file_put_contents(__DIR__ . '/../../app/Http/' . $name . '.php', $controllerString);
-        $output->writeln("Successfully created $name.php");
+        $filePath = __DIR__ . '/../../app/Http/' . $name . '.php';
+
+        if (! file_exists($filePath)) {
+
+            $string = file_get_contents(__DIR__ . '/../resources/templates/Controller.txt');
+            $controllerString = sprintf($string, $name);
+
+            file_put_contents($filePath, $controllerString);
+            
+            $output->writeln("Successfully created $name.php");
+        } else {
+            $output->writeln("$name.php already exists");
+        }
     }
 }

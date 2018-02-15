@@ -4,7 +4,7 @@ namespace App\Http;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class %s extends Controller
+class ExampleController extends Controller
 {
     public function example(Request $request)
     {

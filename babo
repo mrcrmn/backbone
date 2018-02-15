@@ -3,9 +3,7 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
-
-$application = new Application();
+$application = new Symfony\Component\Console\Application();
 
 $commands = require_once __DIR__ . '/config/commands.php';
 

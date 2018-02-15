@@ -4,11 +4,10 @@ namespace App\Http;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class TestController extends Controller
+class %s extends Controller
 {
-    public function example(Request $request)
+    public function index(Request $request)
     {
         //
     }   
 }
-    
