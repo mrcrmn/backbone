@@ -18,7 +18,7 @@ $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
 /**
  * After that we instanciate the Kernel.
  */
-$kernel = new mrcrmn\Backbone\Http\Kernel();
+$kernel = new Backbone\Http\Kernel();
 
 /**
  * The Kernel handles the Request and transforms it into the Response.

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'mrcrmn\\Backbone\\Commands\\ServeCommand',
-    'mrcrmn\\Backbone\\Commands\\CreateCommandCommand',
-    'mrcrmn\\Backbone\\Commands\\CreateControllerCommand',
+    'Backbone\\Commands\\ServeCommand',
+    'Backbone\\Commands\\CreateCommandCommand',
+    'Backbone\\Commands\\CreateControllerCommand',
 ];

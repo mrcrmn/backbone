@@ -1,6 +1,6 @@
 <?php
 
-$router = new mrcrmn\Backbone\Router\Router;
+$router = new Backbone\Router\Router;
 
 /**
  * -------------------------------------------------------
@@ -8,7 +8,7 @@ $router = new mrcrmn\Backbone\Router\Router;
  * -------------------------------------------------------
  */
 
-$router->get('/', 'ExampleController::example');
+$router->get('/{test}', 'ExampleController::example');
 
 /**
  * -------------------------------------------------------

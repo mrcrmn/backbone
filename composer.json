@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4" : {
-            "mrcrmn\\Backbone\\" : "src/",
+            "Backbone\\" : "src/",
             "App\\" : "app/"
         },
         "files" : ["src/resources/functions/helpers.php"]

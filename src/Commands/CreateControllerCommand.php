@@ -1,6 +1,6 @@
 <?php
 
-namespace mrcrmn\Backbone\Commands;
+namespace Backbone\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

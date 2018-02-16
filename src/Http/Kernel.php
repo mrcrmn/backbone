@@ -1,6 +1,6 @@
 <?php
 
-namespace mrcrmn\Backbone\Http;
+namespace Backbone\Http;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ class Kernel implements HttpKernelInterface
     /**
      * The Router Object.
      *
-     * @var \mrcrmn\Backbone\Router\Router
+     * @var \Backbone\Router\Router
      */
     protected $dispatcher;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace mrcrmn\Backbone\Router;
+namespace Backbone\Router;
 
 use FastRoute\RouteCollector;
 use FastRoute\RouteParser\Std as RouteParser;
