@@ -6,6 +6,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+/**
+ * The kernel class which turns requests into responses.
+ *
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 class Kernel implements HttpKernelInterface
 {
 
@@ -22,10 +27,10 @@ class Kernel implements HttpKernelInterface
      * @var \mrcrmn\Backbone\Router\Router
      */
     protected $dispatcher;
-    
+
     /**
      * The Controller Namespace.
-     * 
+     *
      * @var string
      */
     protected const NAMESPACE = "\\App\\Http\\";
@@ -33,18 +38,18 @@ class Kernel implements HttpKernelInterface
     /**
      * The main function which turns the Request into a Response.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param boolean $catch
-     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request The request instance
+     * @param int $type The type of the request
+     * @param boolean $catch Whether exeptions should be caught
+     *
      * @return \Symfony\Component\HttpFoundation\Request
      */
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
         $this->request = $request;
-        
+
         $this->router = require_once base_path('routes/web.php');
-        $routeInfo = $this->router->dispatch($this->getHttpMethod(), $this->getUri());
+        $routeInfo = $this->router->dispatch($this->getHttpMethod(), $request->getRequestUri());
 
         if (! $this->resolveRouteStatusCode($routeInfo[0])) {
             // Todo
@@ -59,7 +64,7 @@ class Kernel implements HttpKernelInterface
     /**
      * Gets the HTTP Request method from the Request Object.
      *
-     * @return string
+     * @return string The Http Method
      */
     protected function getHttpMethod()
     {
@@ -67,25 +72,9 @@ class Kernel implements HttpKernelInterface
     }
 
     /**
-     * Gets the Uri from the Request Object.
-     *
-     * @return string
-     */
-    protected function getUri()
-    {
-        $uri = $this->request->server->get('REQUEST_URI');
-        if (false !== $pos = strpos($uri, '?')) {
-            $uri = substr($uri, 0, $pos);
-        }
-        $uri = rawurldecode($uri);
-
-        return $uri;
-    }
-
-    /**
      * Resolves the Controller and calls it.
      *
-     * @param array $routeInfo 
+     * @param array $routeInfo The matched Route Info
      * @return void
      */
     protected function resolveController($routeInfo) {
@@ -127,7 +116,7 @@ class Kernel implements HttpKernelInterface
     /**
      * Sets the Request attributes based on the route info.
      *
-     * @param array $attributes
+     * @param array $attributes The dynamic Uri Attributes
      * @return void
      */
     protected function setRequestAttributes($attributes)

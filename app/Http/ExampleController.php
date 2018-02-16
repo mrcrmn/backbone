@@ -9,5 +9,5 @@ class ExampleController extends Controller
     public function example(Request $request)
     {
         //
-    }   
+    }
 }

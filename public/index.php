@@ -13,7 +13,7 @@ require_once __DIR__ . '/../bootstrap/bootstrap.php';
 /**
  * Next we'll create a new Symfony Request Object fromn the Globals.
  */
-$request = mrcrmn\Backbone\Http\Request::createFromGlobals();
+$request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
 
 /**
  * After that we instanciate the Kernel.
@@ -26,6 +26,6 @@ $kernel = new mrcrmn\Backbone\Http\Kernel();
 $response = $kernel->handle($request);
 
 /**
- * Finally we send the response to the client. 
+ * Finally we send the response to the client.
  */
 $response->send();
