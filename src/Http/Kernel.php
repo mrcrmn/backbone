@@ -2,6 +2,8 @@
 
 namespace Backbone\Http;
 
+use Backbone\Http\RouteResolver;
+use Backbone\Http\ControllerResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -22,25 +24,11 @@ class Kernel implements HttpKernelInterface
     public $request;
 
     /**
-     * The Router Object.
-     *
-     * @var \Backbone\Router\Router
-     */
-    protected $dispatcher;
-
-    /**
-     * The Controller Namespace.
-     *
-     * @var string
-     */
-    protected const NAMESPACE = "\\App\\Http\\";
-
-    /**
      * The main function which turns the Request into a Response.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request The request instance
      * @param int $type The type of the request
-     * @param boolean $catch Whether exeptions should be caught
+     * @param bool $catch Whether exeptions should be caught
      *
      * @return \Symfony\Component\HttpFoundation\Request
      */
@@ -48,54 +36,27 @@ class Kernel implements HttpKernelInterface
     {
         $this->request = $request;
 
-        $this->router = require_once base_path('routes/web.php');
-        $routeInfo = $this->router->dispatch($this->getHttpMethod(), $request->getRequestUri());
+        $routeInfo = RouteResolver::resolve($this->request);
+
+        if (isset($routeInfo[2])) {
+            $this->setRequestAttributes($routeInfo);
+        }
 
         if (! $this->resolveRouteStatusCode($routeInfo[0])) {
             // Todo
             return new Response("404");
         }
 
-        $content = $this->resolveController($routeInfo);
+        $content = ControllerResolver::resolve($routeInfo, $this->request);
 
         return new Response($content);
-    }
-
-    /**
-     * Gets the HTTP Request method from the Request Object.
-     *
-     * @return string The Http Method
-     */
-    protected function getHttpMethod()
-    {
-        return $this->request->server->get('REQUEST_METHOD');
-    }
-
-    /**
-     * Resolves the Controller and calls it.
-     *
-     * @param array $routeInfo The matched Route Info
-     * @return void
-     */
-    protected function resolveController($routeInfo) {
-
-        if (isset($routeInfo[2])) {
-            $this->setRequestAttributes($routeInfo[2]);
-        }
-
-        $funcToCall = self::NAMESPACE . $routeInfo[1];
-        $controllerArray = explode('::', $funcToCall);
-
-        $controller = new $controllerArray[0];
-        $method = $controllerArray[1];
-
-        return call_user_func_array([$controller, $method], [$this->request]);
     }
 
     /**
      * We check if the Route is found and check if the method is allowed.
      *
      * @param int $statusCode
+     *
      * @return void
      */
     protected function resolveRouteStatusCode($statusCode)
@@ -120,11 +81,13 @@ class Kernel implements HttpKernelInterface
     /**
      * Sets the Request attributes based on the route info.
      *
-     * @param array $attributes The dynamic Uri Attributes
+     * @param array $routeInfo the dynamic Uri Attributes
+     *
      * @return void
      */
-    protected function setRequestAttributes($attributes)
+    protected function setRequestAttributes($routeInfo)
     {
-        $this->request->attributes->add($attributes);
+        $this->request->attributes->add($routeInfo[2]);
     }
+
 }
