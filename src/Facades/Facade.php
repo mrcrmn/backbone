@@ -2,28 +2,26 @@
 
 namespace Backbone\Facades;
 
+/**
+ * The Facade Base Class.
+ *
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 abstract class Facade
 {
-    /**
-     * Determine if the Facade has been booted.
-     *
-     * @var bool
-     */
-    protected static $hasBeenBooted = false;
-
     /**
      * The method needed to boot the Facade.
      *
      * @return void
      */
-    protected abstract static function boot();
+    abstract protected static function boot();
 
     /**
      * The function which returns the booted service.
      *
      * @var mixed
      */
-    protected abstract static function getService();
+    abstract protected static function getService();
 
     /**
      * The magic method which proxies the method call to the service.
@@ -35,7 +33,6 @@ abstract class Facade
      */
     public static function __callStatic($method, $arguments)
     {
-        // if the service has not been booted yet, we boot it duh.
         if (! static::$hasBeenBooted) {
             static::boot();
             static::$hasBeenBooted = true;

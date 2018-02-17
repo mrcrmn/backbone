@@ -11,4 +11,9 @@ class ExampleController extends Controller
     {
         return View::render('example', ['example' => 'test']);
     }
+
+    public function index(Request $request)
+    {
+        return View::render('example', ['example' => $request->attributes->get('test')]);
+    }
 }

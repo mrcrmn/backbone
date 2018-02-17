@@ -1,7 +1,10 @@
 <?php
 
+use Backbone\Facades\View;
+
 if (! function_exists('dd')) {
-    function dd($var) {
+    function dd($var)
+    {
         echo "<pre>";
         var_dump($var);
         echo "</pre>";
@@ -10,14 +13,22 @@ if (! function_exists('dd')) {
 }
 
 if (! function_exists('env')) {
-    function env($key, $default = null) {
+    function env($key, $default = null)
+    {
         return getenv($key) ?: $default;
     }
 }
 
+if (! function_exists('getConfig')) {
+    function getConfig($key)
+    {
+        return require_once base_path('config/' . $key . '.php');
+    }
+}
+
 if (! function_exists('view')) {
-    function view($view, $data) {
-        $blade = new duncan3dc\Laravel\BladeInstance(base_path('resources/views'), base_path('storage/cache/views'));
-        return $blade->render($view, $data);
+    function view($view, $data)
+    {
+        return View::render($view, $data);
     }
 }

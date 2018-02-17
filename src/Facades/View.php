@@ -8,6 +8,13 @@ use duncan3dc\Laravel\BladeInstance;
 class View extends Facade
 {
     /**
+     * Determine if the Facade has been booted.
+     *
+     * @var bool
+     */
+    protected static $hasBeenBooted = false;
+
+    /**
      * The Blade instance.
      *
      * @var \duncan3dc\Laravel\BladeInstance
@@ -16,13 +23,13 @@ class View extends Facade
 
     /**
      * Boots the Facade.
-     * @method boot
      *
      * @return void
      */
     protected static function boot()
     {
-        self::$blade = new BladeInstance(base_path('resources/views'), base_path('storage/cache/views'));
+        $paths = getConfig('view');
+        self::$blade = new BladeInstance($paths['templates'], $paths['cache']);
     }
 
     /**
@@ -34,5 +41,4 @@ class View extends Facade
     {
         return self::$blade;
     }
-
 }

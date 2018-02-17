@@ -2,10 +2,10 @@
 
 namespace Backbone\Facades;
 
+use Backbone\Router\Router;
 use Backbone\Facades\Facade;
-use Symfony\Component\Filesystem\Filesystem;
 
-class File extends Facade
+class Route extends Facade
 {
     /**
      * Determine if the Facade has been booted.
@@ -13,13 +13,13 @@ class File extends Facade
      * @var bool
      */
     protected static $hasBeenBooted = false;
-    
+
     /**
-     * The Blade instance.
+     * The Router instance.
      *
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var \Backbone\Router\Router
      */
-    protected static $filesystem;
+    protected static $router;
 
     /**
      * Boots the Facade.
@@ -28,16 +28,16 @@ class File extends Facade
      */
     protected static function boot()
     {
-        self::$filesystem = new Filesystem();
+        self::$router = new Router;
     }
 
     /**
      * Returns the service to the facade.
      *
-     * @return \Symfony\Component\Filesystem\Filesystem
+     * @return \Backbone\Router\Router
      */
     protected static function getService()
     {
-        return self::$filesystem;
+        return self::$router;
     }
 }

@@ -22,9 +22,11 @@
     },
     "autoload": {
         "psr-4" : {
-            "Backbone\\" : "src/",
-            "App\\" : "app/"
+            "Backbone\\": "src/",
+            "App\\": "app/"
         },
-        "files" : ["src/resources/functions/helpers.php"]
+        "files": [
+            "src/resources/functions/helpers.php"
+        ]
     }
 }

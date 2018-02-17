@@ -1,6 +1,6 @@
 <?php
 
-$router = new Backbone\Router\Router;
+use Backbone\Facades\Route;
 
 /**
  * -------------------------------------------------------
@@ -8,9 +8,4 @@ $router = new Backbone\Router\Router;
  * -------------------------------------------------------
  */
 
-$router->get('/', 'ExampleController::example');
-
-/**
- * -------------------------------------------------------
- */
-return $router;
+Route::get('/', 'ExampleController::example');
