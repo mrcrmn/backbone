@@ -21,25 +21,26 @@ class ControllerResolver
     /**
      * Resolves the Controller and calls it.
      *
-     * @param  array $routeInfo the route info
-     * @param  Request $request the Request
+     * @param  string $string The controller string
+     * @param  Request $request The Request object
      *
      * @return string the response content
      */
-    public static function resolve($routeInfo, Request $request)
+    public static function resolve($string, Request $request)
     {
-        $controllerInfoArray = self::getControllerInfoArray($routeInfo[1]);
+        $controllerInfoArray = self::getControllerInfoArray($string);
 
         $controller = self::getControllerInstanceFromInfo($controllerInfoArray);
         $method = self::getMethodFromInfo($controllerInfoArray);
 
+        // Calls the controller and its method.
         return call_user_func_array([$controller, $method], [$request]);
     }
 
     /**
      * Explodes the controller string into the controller and the method.
      *
-     * @param  string $info the route info
+     * @param  string $info The controller name
      *
      * @return array [string CONTROLLER, string METHOD]
      */
@@ -53,7 +54,7 @@ class ControllerResolver
      *
      * @param  array $array the controller array which contains the controller name and method name.
      *
-     * @return \App\Http\Controller the controller instance
+     * @return \App\Http\Controller The controller instance
      */
     protected static function getControllerInstanceFromInfo($array)
     {
@@ -66,9 +67,10 @@ class ControllerResolver
      *
      * @param  array $array the controller array which contains the controller name and method name.
      *
-     * @return string the method name
+     * @return string The method name
      */
-    protected static function getMethodFromInfo($array) {
+    protected static function getMethodFromInfo($array)
+    {
         return $array[1];
     }
 }

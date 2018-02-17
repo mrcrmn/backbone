@@ -8,7 +8,7 @@ $router = new Backbone\Router\Router;
  * -------------------------------------------------------
  */
 
-$router->get('/{test}', 'ExampleController::example');
+$router->get('/', 'ExampleController::example');
 
 /**
  * -------------------------------------------------------

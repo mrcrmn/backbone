@@ -2,11 +2,14 @@
 
 namespace Backbone\Http;
 
+use Backbone\Facades\View;
 use Backbone\Http\RouteResolver;
 use Backbone\Http\ControllerResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Backbone\Http\Exceptions\RouteNotFoundException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Backbone\Http\Exceptions\MethodNotAllowedException;
 
 /**
  * The kernel class which turns requests into responses.
@@ -36,58 +39,46 @@ class Kernel implements HttpKernelInterface
     {
         $this->request = $request;
 
-        $routeInfo = RouteResolver::resolve($this->request);
+        try {
+            // Try running the router and catch exceptions.
+            $routeInfo = RouteResolver::resolve($this->request);
+        } catch (RouteNotFoundException $e) {
+            return $this->abort(Response::HTTP_NOT_FOUND);
+        } catch (MethodNotAllowedException $e) {
+            return $this->abort(Response::HTTP_METHOD_NOT_ALLOWED);
+        }
 
+        // If the routes contains attributes, add them to the attributes request parameter bag.
         if (isset($routeInfo[2])) {
-            $this->setRequestAttributes($routeInfo);
+            $this->setRequestAttributes($routeInfo[2]);
         }
 
-        if (! $this->resolveRouteStatusCode($routeInfo[0])) {
-            // Todo
-            return new Response("404");
-        }
+        $content = ControllerResolver::resolve($routeInfo[1], $this->request);
 
-        $content = ControllerResolver::resolve($routeInfo, $this->request);
-
-        return new Response($content);
-    }
-
-    /**
-     * We check if the Route is found and check if the method is allowed.
-     *
-     * @param int $statusCode
-     *
-     * @return void
-     */
-    protected function resolveRouteStatusCode($statusCode)
-    {
-        switch ($statusCode) {
-
-            case \FastRoute\Dispatcher::NOT_FOUND:
-                return false;
-                break;
-
-            case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-                $allowedMethods = $routeInfo[1];
-                throw new \Exception("Method not allowed. Must use {$allowedMethods}.");
-                break;
-
-            case \FastRoute\Dispatcher::FOUND:
-                return true;
-                break;
-        }
+        return new Response($content, Response::HTTP_OK);
     }
 
     /**
      * Sets the Request attributes based on the route info.
      *
-     * @param array $routeInfo the dynamic Uri Attributes
+     * @param array $attributes The dynamic Uri Attributes
      *
      * @return void
      */
-    protected function setRequestAttributes($routeInfo)
+    protected function setRequestAttributes($attributes)
     {
-        $this->request->attributes->add($routeInfo[2]);
+        $this->request->attributes->add($attributes);
     }
 
+    /**
+     * Aborts the request and sends an error response
+     *
+     * @param  int $status HTTP status code
+     *
+     * @return \Symfony\Component\HttpFoundation\Response The Response instance
+     */
+    protected function abort($status)
+    {
+        return new Response(View::render('errors.'.$status), $status, ['content-type' => 'text/html']);
+    }
 }

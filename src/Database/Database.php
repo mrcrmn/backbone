@@ -2,7 +2,7 @@
 
 /**
  * This file is part of ezpdo.
- * 
+ *
  * @author Marco Reimann <marcoreimann@outlook.de>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -21,42 +21,37 @@ class Database extends Collector
 
     /**
      * INSERT|SELECT|UPDATE|DELETE
-     * 
+     *
      * @var string
      */
     public $action;
 
     /**
      * List of all available actions.
-     * 
+     *
      * @var array
      */
     public $actions = ['INSERT', 'SELECT', 'UPDATE', 'DELETE'];
 
     /**
      * Builds the insert statement. Accepts an assoc array [$key => $value].
-     * 
+     *
      * @param  array $values
-     * 
+     *
      * @return $this
      */
     public function insert($values)
     {
         $this->action = 'INSERT';
 
-        $this->builder = new InsertQueryBuilder($table, $values);
-        $this->preparer = new Preparer($this->connection, $this->builder);
-
-        $this->prepared = $this->preparer->getPrepared();
-
         return $this;
     }
 
     /**
      * The start of the select statement.
-     * 
+     *
      * @param  array|string $columns
-     * 
+     *
      * @return $this
      */
     public function select($columns = ['*'])
@@ -65,13 +60,13 @@ class Database extends Collector
 
         $columns = is_array($columns) ? $columns : func_get_args();
         $this->makeColumns($columns);
-        
+
         return $this;
     }
 
     /**
      * The beginning of the update statement.
-     * 
+     *
      * @return $this
      */
     public function update()
@@ -79,11 +74,11 @@ class Database extends Collector
         $this->action = 'UPDATE';
 
         return $this;
-    } 
+    }
 
     /**
      * The beginning of the update statement.
-     * 
+     *
      * @return $this
      */
     public function delete()
@@ -119,7 +114,7 @@ class Database extends Collector
 
     /**
      * Sets the distinct value to true.
-     * 
+     *
      * @return $this
      */
     public function distinct()
@@ -131,15 +126,15 @@ class Database extends Collector
 
     /**
      * Adds a where clause.
-     * 
+     *
      * @param  string       $column
      * @param  string       $operator
      * @param  string|int   $value
      * @param  string       $boolean
-     * 
+     *
      * @return $this
      */
-    public function where($column, $operator, $value = NULL, $boolean = 'AND')
+    public function where($column, $operator, $value = null, $boolean = 'AND')
     {
         $this->addWhere($column, $operator, $value, $boolean);
 
@@ -148,22 +143,25 @@ class Database extends Collector
 
     /**
      * Adds a or where clause.
-     * 
+     *
      * @param  string       $column
      * @param  string       $operator
      * @param  string|int   $value
-     * @param  string       $boolean
-     * 
+     *
      * @return $this
      */
-    public function orWhere($column, $operator, $value = NULL)
+    public function orWhere($column, $operator, $value = null)
     {
         return $this->where($column, $operator, $value, 'OR');
     }
 
     /**
-     * TODO
-     * 
+     * Adds where in clause.
+     *
+     * @param  string $column
+     * @param  array $array
+     * @param  string $boolean
+     *
      * @return $this
      */
     public function whereIn($column, $array, $boolean = 'AND')
@@ -174,8 +172,11 @@ class Database extends Collector
     }
 
     /**
-     * TODO
-     * 
+     * Adds or where in clause.
+     *
+     * @param  string $column
+     * @param  array $array
+     *
      * @return $this
      */
     public function orWhereIn($column, $array)
@@ -185,10 +186,10 @@ class Database extends Collector
 
     /**
      * Adds a order by subquery.
-     * 
+     *
      * @param  string $column
      * @param  string $direction
-     * 
+     *
      * @return $this
      */
     public function orderBy($column, $direction = 'ASC')
@@ -200,9 +201,9 @@ class Database extends Collector
 
     /**
      * Adds a order by subquery.
-     * 
+     *
      * @param  string $column
-     * 
+     *
      * @return $this
      */
     public function groupBy($column)
@@ -214,15 +215,15 @@ class Database extends Collector
 
     /**
      * Adds a basic inner join to the query.
-     * 
-     * @param  string $onTable     
-     * @param  string $firstColumn 
+     *
+     * @param  string $onTable
+     * @param  string $firstColumn
      * @param  string $secondColumn
-     * @param  string $type        
-     * 
+     * @param  string $type
+     *
      * @return $this
      */
-    public function join($onTable, $secondColumn = NULL, $firstColumn = 'id', $type = 'INNER')
+    public function join($onTable, $secondColumn = null, $firstColumn = 'id', $type = 'INNER')
     {
         $this->addJoin($onTable, $secondColumn, $firstColumn = 'id', $type);
 
@@ -231,37 +232,37 @@ class Database extends Collector
 
     /**
      * Adds a left join to the query.
-     * 
-     * @param  string $onTable     
-     * @param  string $firstColumn 
+     *
+     * @param  string $onTable
+     * @param  string $firstColumn
      * @param  string $secondColumn
-     * 
+     *
      * @return $this
      */
-    public function leftJoin($onTable, $secondColumn = NULL, $firstColumn = 'id')
+    public function leftJoin($onTable, $secondColumn = null, $firstColumn = 'id')
     {
         return $this->join($onTable, $secondColumn, $firstColumn = 'id', 'LEFT OUTER');
     }
 
     /**
      * Adds a right join to the query.
-     * 
-     * @param  string $onTable     
-     * @param  string $firstColumn 
+     *
+     * @param  string $onTable
+     * @param  string $firstColumn
      * @param  string $secondColumn
-     * 
+     *
      * @return $this
      */
-    public function rightJoin($onTable, $firstColumn = NULL, $secondColumn)
+    public function rightJoin($onTable, $firstColumn = null, $secondColumn)
     {
         return $this->join($onTable, $firstColumn, $secondColumn, 'RIGHT OUTER');
     }
 
     /**
      * Adds a limit to the query.
-     * 
-     * @param  integer $limit
-     * 
+     *
+     * @param  int $limit
+     *
      * @return $this
      */
     public function limit($limit)
@@ -273,9 +274,9 @@ class Database extends Collector
 
     /**
      * Adds a offset to the query.
-     * 
-     * @param  integer $offset
-     * 
+     *
+     * @param  int $offset
+     *
      * @return $this
      */
     public function offset($offset)
@@ -292,7 +293,7 @@ class Database extends Collector
 
     /**
      * Gets an array after the select statement is executed.
-     * 
+     *
      * @return array
      */
     public function get()
@@ -309,7 +310,7 @@ class Database extends Collector
 
     /**
      * Sets the limit to 1, executes the query and returns the first result.
-     * 
+     *
      * @return array
      */
     public function first()
@@ -321,8 +322,8 @@ class Database extends Collector
 
     /**
      * Gets the count of the selected rows.
-     * 
-     * @return integer
+     *
+     * @return int
      */
     public function count()
     {
@@ -334,11 +335,11 @@ class Database extends Collector
 
     /**
      * Executes the prepared statement.
-     * 
+     *
      * @return bool
      */
     public function run()
-    {   
+    {
         return $this->execPreparedStatement();
     }
 }

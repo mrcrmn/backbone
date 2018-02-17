@@ -2,7 +2,10 @@
 
 namespace Backbone\Http;
 
+use FastRoute\Dispatcher;
 use Symfony\Component\HttpFoundation\Request;
+use Backbone\Http\Exceptions\RouteNotFoundException;
+use Backbone\Http\Exceptions\MethodNotAllowedException;
 
 /**
  * Resolves the Route and returns the info for the controller.
@@ -22,7 +25,12 @@ class RouteResolver
     {
         $router = require_once base_path('routes/web.php');
 
-        return $router->dispatch(self::getHttpMethod($request), $request->getRequestUri());
+
+        $routeInfo = $router->dispatch(self::getHttpMethod($request), $request->getRequestUri());
+
+        self::resolveStatusCode($routeInfo[0]);
+
+        return $routeInfo;
     }
 
     /**
@@ -36,4 +44,26 @@ class RouteResolver
     {
         return $request->server->get('REQUEST_METHOD');
     }
+
+    /**
+     * resolves the status code and throws exceptions.
+     *
+     * @param  int $status The status code
+     *
+     * @throws \Backbone\Http\Exceptions\RouteNotFoundException Thrown when the route is not found
+     * @throws \Backbone\Http\Exceptions\MethodNotAllowedException Thrown when method is not allowed
+     *
+     * @return void
+     */
+    protected static function resolveStatusCode($status)
+    {
+        if ($status === Dispatcher::NOT_FOUND) {
+            throw new RouteNotFoundException("Route not found");
+        }
+
+        if ($status === Dispatcher::METHOD_NOT_ALLOWED) {
+            throw new MethodNotAllowedException("Method not allowed");
+        }
+    }
+
 }
