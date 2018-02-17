@@ -20,6 +20,13 @@ if (! function_exists('env')) {
 }
 
 if (! function_exists('getConfig')) {
+    /**
+     * Returns the config array.
+     *
+     * @param  string $key The config key eg. route, view, commands
+     *
+     * @return array The configuration
+     */
     function getConfig($key)
     {
         return require_once base_path('config/' . $key . '.php');

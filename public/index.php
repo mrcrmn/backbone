@@ -1,12 +1,7 @@
 <?php
 
 /**
- * First we need to require the autoloader.
- */
-require_once __DIR__ . '/../vendor/autoload.php';
-
-/**
- * Now we'll bootstrap needed functions and debug methods.
+ * First we'll bootstrap needed functions and debug methods.
  */
 require_once __DIR__ . '/../bootstrap/bootstrap.php';
 

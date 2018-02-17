@@ -26,13 +26,11 @@ class RouteResolver
      * Gets the route info from the passed request.
      *
      * @param  Request $request the request object
-     *
      * @return array the route info [0 => STATUS_CODE, 1 => CONTROLLER::METHOD, 2 => ARGUMENTS]
      */
     public static function resolve(Request $request)
     {
-        static::$config = getConfig('route');
-        require_once static::$config['web'];
+        require_once getConfig('route')['web'];
 
         $routeInfo = Route::dispatch(self::getHttpMethod($request), $request->getRequestUri());
 
@@ -45,7 +43,6 @@ class RouteResolver
      * Gets the HTTP Request method from the Request Object.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request the request which contains info about the method
-     *
      * @return string The Http Method
      */
     protected static function getHttpMethod($request)
@@ -60,7 +57,6 @@ class RouteResolver
      *
      * @throws \Backbone\Http\Exceptions\RouteNotFoundException Thrown when the route is not found
      * @throws \Backbone\Http\Exceptions\MethodNotAllowedException Thrown when method is not allowed
-     *
      * @return void
      */
     protected static function resolveStatusCode($status)

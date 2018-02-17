@@ -28,7 +28,6 @@ abstract class Facade
      *
      * @param  mixed $method    the method to call
      * @param  mixed $arguments the arguments
-     *
      * @return mixed
      */
     public static function __callStatic($method, $arguments)

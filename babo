@@ -2,9 +2,9 @@
 <?php
 
 /**
- * Requiring the Autoloader
+ * Bootstrapping the application
  */
-require __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/bootstrap/bootstrap.php';
 
 /**
  * Gets the Console Application
@@ -14,10 +14,10 @@ $application = new Symfony\Component\Console\Application();
 /**
  * Gets the registered commands and adds them to the application.
  */
-$commands = require_once __DIR__ . '/config/commands.php';
+$commands = getConfig('commands');
 
 foreach ($commands as $command) {
-	$application->add(new $command());
+    $application->add(new $command());
 }
 
 /**

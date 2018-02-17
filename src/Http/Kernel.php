@@ -32,7 +32,6 @@ class Kernel implements HttpKernelInterface
      * @param \Symfony\Component\HttpFoundation\Request $request The request instance
      * @param int $type The type of the request
      * @param bool $catch Whether exeptions should be caught
-     *
      * @return \Symfony\Component\HttpFoundation\Request
      */
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
@@ -62,7 +61,6 @@ class Kernel implements HttpKernelInterface
      * Sets the Request attributes based on the route info.
      *
      * @param array $attributes The dynamic Uri Attributes
-     *
      * @return void
      */
     protected function setRequestAttributes($attributes)
@@ -74,7 +72,6 @@ class Kernel implements HttpKernelInterface
      * Aborts the request and sends an error response
      *
      * @param  int $status HTTP status code
-     *
      * @return \Symfony\Component\HttpFoundation\Response The Response instance
      */
     protected function abort($status)

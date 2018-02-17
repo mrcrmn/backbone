@@ -23,7 +23,6 @@ class ControllerResolver
      *
      * @param  string $string The controller string
      * @param  Request $request The Request object
-     *
      * @return string the response content
      */
     public static function resolve($string, Request $request)
@@ -41,7 +40,6 @@ class ControllerResolver
      * Explodes the controller string into the controller and the method.
      *
      * @param  string $info The controller name
-     *
      * @return array [string CONTROLLER, string METHOD]
      */
     protected static function getControllerInfoArray($info)
@@ -53,7 +51,6 @@ class ControllerResolver
      * Gets a new controller instance.
      *
      * @param  array $array the controller array which contains the controller name and method name.
-     *
      * @return \App\Http\Controller The controller instance
      */
     protected static function getControllerInstanceFromInfo($array)
@@ -66,7 +63,6 @@ class ControllerResolver
      * Gets the method name to call.
      *
      * @param  array $array the controller array which contains the controller name and method name.
-     *
      * @return string The method name
      */
     protected static function getMethodFromInfo($array)
