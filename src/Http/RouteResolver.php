@@ -15,12 +15,6 @@ use Backbone\Http\Exceptions\MethodNotAllowedException;
  */
 class RouteResolver
 {
-    /**
-     * The Route config.
-     *
-     * @var array
-     */
-    protected static $config;
 
     /**
      * Gets the route info from the passed request.
@@ -30,7 +24,9 @@ class RouteResolver
      */
     public static function resolve(Request $request)
     {
-        require_once getConfig('route')['web'];
+        foreach (getConfig('route') as $routePath) {
+            require_once $routePath;
+        }
 
         $routeInfo = Route::dispatch(self::getHttpMethod($request), $request->getRequestUri());
 
