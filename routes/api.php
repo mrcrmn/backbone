@@ -8,4 +8,4 @@ use Backbone\Facades\Route;
  * -------------------------------------------------------
  */
 
-// Route::get('/api/v1/', 'ApiController::index');
+Route::get('/api/v1/', 'ApiController::index');

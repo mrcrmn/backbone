@@ -1,4 +1,5 @@
 {
+    "license": "MIT",
     "privat": true,
     "scripts": {
         "dev": "yarn run development",

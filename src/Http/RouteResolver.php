@@ -15,7 +15,6 @@ use Backbone\Http\Exceptions\MethodNotAllowedException;
  */
 class RouteResolver
 {
-
     /**
      * Gets the route info from the passed request.
      *

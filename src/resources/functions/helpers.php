@@ -19,12 +19,27 @@ if (! function_exists('env')) {
     }
 }
 
+if (! function_exists('asset')) {
+    function asset($file)
+    {
+        $file = ltrim($file, '/');
+        $realpath = base_path('public/' . $file);
+
+        if (! file_exists($realpath)) {
+            return false;
+        }
+
+        $version = '?v=' . hash('adler32', filemtime($realpath));
+
+        return env('APP_URL', '') . '/' . $file . $version;
+    }
+}
+
 if (! function_exists('getConfig')) {
     /**
      * Returns the config array.
      *
      * @param  string $key The config key eg. route, view, commands
-     *
      * @return array The configuration
      */
     function getConfig($key)

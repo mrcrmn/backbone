@@ -26,7 +26,7 @@ $dotenv->load(base_path('.env'));
 /**
  * Enable Error Messages if in Debug mode.
  */
-if (env('DEBUG') == 'true') {
+if (env('APP_DEBUG') == 'true') {
     $whoops = new \Whoops\Run;
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
     $whoops->register();

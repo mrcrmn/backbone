@@ -2,6 +2,7 @@
     "name": "mrcrmn/backbone",
     "version": "0.1.0",
     "description": "A simple Framework with basic routing, controllers and blade.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Marco Reimann",
