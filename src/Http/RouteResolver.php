@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Resolves the Route and returns the info for the controller.
+ *
+ * @author Marco Reimann <marcoreimann@outlook.de>
  */
 class RouteResolver
 {

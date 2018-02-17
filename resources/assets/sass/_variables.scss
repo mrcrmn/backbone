@@ -1,0 +1,27 @@
+$body-bg:               #fff;
+
+$text-color:            #ebebeb;
+
+$link-color:            #1212dc;
+$link-hover-color:      darken($link-color, 15%);
+$link-hover-decoration: underline;
+
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$font-size-base:          1rem;
+
+$font-size-h1:            floor(($font-size-base * 2.6));
+$font-size-h2:            floor(($font-size-base * 2.15));
+$font-size-h3:            ceil(($font-size-base * 1.7));
+$font-size-h4:            ceil(($font-size-base * 1.25));
+$font-size-h5:            $font-size-base;
+$font-size-h6:            ceil(($font-size-base * 0.85));
+
+$line-height-base: 1.428571429;
+
+$grid-columns:              12;
+$grid-gutter-width: 30px;
+
+$container-tablet:             (720px + $grid-gutter-width);
+$container-desktop:            (940px + $grid-gutter-width);
+$container-large-desktop:      (1140px + $grid-gutter-width);

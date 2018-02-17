@@ -1,4 +1,13 @@
 {
+    "name": "mrcrmn/backbone",
+    "version": "0.1.0",
+    "description": "A simple Framework with basic routing, controllers and blade.",
+    "authors": [
+        {
+            "name": "Marco Reimann",
+            "email": "marcoreimann@outlook.de"
+        }
+    ],
     "require": {
         "symfony/http-kernel": "^4.0",
         "symfony/http-foundation": "^4.0",
