@@ -1,14 +1,26 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * Requiring the Autoloader
+ */
 require __DIR__.'/vendor/autoload.php';
 
+/**
+ * Gets the Console Application
+ */
 $application = new Symfony\Component\Console\Application();
 
+/**
+ * Gets the registered commands and adds them to the application.
+ */
 $commands = require_once __DIR__ . '/config/commands.php';
 
 foreach ($commands as $command) {
 	$application->add(new $command());
 }
 
+/**
+ * Run the application.
+ */
 $application->run();
