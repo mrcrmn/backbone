@@ -83,9 +83,13 @@ class Kernel implements HttpKernelInterface
             $this->setRequestAttributes($routeInfo[2]);
         }
 
-        $controller = self::NAMESPACE . $routeInfo[1];
+        $funcToCall = self::NAMESPACE . $routeInfo[1];
+        $controllerArray = explode('::', $funcToCall);
 
-        return call_user_func_array($controller, [$this->request]);
+        $controller = new $controllerArray[0];
+        $method = $controllerArray[1];
+
+        return call_user_func_array([$controller, $method], [$this->request]);
     }
 
     /**

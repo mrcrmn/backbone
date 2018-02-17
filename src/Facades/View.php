@@ -9,6 +9,7 @@ class View extends Facade
 {
     /**
      * The Blade instance.
+     *
      * @var \duncan3dc\Laravel\BladeInstance
      */
     protected static $blade;
@@ -16,6 +17,7 @@ class View extends Facade
     /**
      * Boots the Facade.
      * @method boot
+     *
      * @return void
      */
     protected static function boot()
@@ -24,18 +26,13 @@ class View extends Facade
     }
 
     /**
-     * Renders a View.
-     * @method render
-     * @param  string $template the path to the template
-     * @param  array $data     the data which is needed to render the view
-     * @return string           the rendered template
+     * Returns the service to the facade.
+     *
+     * @return \duncan3dc\Laravel\BladeInstance the Blade instance
      */
-    public static function render($template, $data)
+    protected static function getService()
     {
-        if (! self::$hasBeenBooted) {
-            self::boot();
-        }
-
-        return self::$blade->render($template, $data);
+        return self::$blade;
     }
+
 }
