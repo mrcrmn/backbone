@@ -42,9 +42,9 @@ class Kernel implements HttpKernelInterface
             // Try running the router and catch exceptions.
             $routeInfo = RouteResolver::resolve($this->request);
         } catch (RouteNotFoundException $e) {
-            return $this->abort(Response::HTTP_NOT_FOUND);
+            return $this->abort(Response::HTTP_NOT_FOUND, $e->getMessage());
         } catch (MethodNotAllowedException $e) {
-            return $this->abort(Response::HTTP_METHOD_NOT_ALLOWED);
+            return $this->abort(Response::HTTP_METHOD_NOT_ALLOWED, $e->getMessage());
         }
 
         // If the routes contains attributes, add them to the attributes request parameter bag.
@@ -72,10 +72,15 @@ class Kernel implements HttpKernelInterface
      * Aborts the request and sends an error response
      *
      * @param  int $status HTTP status code
+     * @param  string $msg The error message to display
      * @return \Symfony\Component\HttpFoundation\Response The Response instance
      */
-    protected function abort($status)
+    protected function abort($status, $msg = 'Something went wrong')
     {
-        return new Response(View::render('errors.'.$status), $status, ['content-type' => 'text/html']);
+        return new Response(
+            View::render('errors.error', ['error' => $status, 'msg' => $msg]),
+            $status,
+            ['content-type' => 'text/html']
+        );
     }
 }
