@@ -1,26 +1,19 @@
 <?php
 
-/**
- * This file is part of ezpdo.
- *
- * @author Marco Reimann <marcoreimann@outlook.de>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Backbone\Database;
 
 use \Exception;
-use Backbone\Database\QueryBuilders\DeleteQueryBuilder;
+use Backbone\Database\Connectors\DatabaseConnection;
 use Backbone\Database\QueryBuilders\InsertQueryBuilder;
 use Backbone\Database\QueryBuilders\SelectQueryBuilder;
 use Backbone\Database\QueryBuilders\UpdateQueryBuilder;
-use Backbone\Database\Connectors\DatabaseConnection;
-
+use Backbone\Database\QueryBuilders\DeleteQueryBuilder;
 
 /**
  * The Collector Class which stores the data and methods needed to build a query.
+ *
+ * @package Backbone
+ * @author Marco Reimann <marcoreimann@outlook.de>
  */
 class Collector
 {
@@ -291,5 +284,4 @@ class Collector
 
         return $this->builder->build();
     }
-
 }

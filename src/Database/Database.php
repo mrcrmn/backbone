@@ -5,8 +5,9 @@ namespace Backbone\Database;
 use Backbone\Database\Collector;
 
 /**
-* The main class which hosts the public API.
+* The main database class which hosts the public API.
 *
+* @package Backbone
 * @author Marco Reimann <marcoreimann@outlook.de>
 */
 class Database extends Collector

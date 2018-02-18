@@ -1,22 +1,15 @@
 <?php
 
-/**
- * This file is part of ezpdo.
- * 
- * @author Marco Reimann <marcoreimann@outlook.de>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Backbone\Database\QueryBuilders;
 
 /**
 * This Class has methods which are needed to turn the Data from the collector into subqueries.
+*
+* @package Backbone
+* @author Marco Reimann <marcoreimann@outlook.de>
 */
 class BaseQueryBuilder
 {
-    
     public function addDistinct()
     {
         if ($this->db->isDistinct) {

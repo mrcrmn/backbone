@@ -1,4 +1,10 @@
 <?php
+/**
+ * Helper functions for the Backbone Framework
+ *
+ * @package Backbone
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 
 use Backbone\Facades\View;
 

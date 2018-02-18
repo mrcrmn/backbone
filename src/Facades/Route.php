@@ -5,6 +5,12 @@ namespace Backbone\Facades;
 use Backbone\Router\Router;
 use Backbone\Facades\Facade;
 
+/**
+ * The Route Facade.
+ *
+ * @package Backbone
+ * @author  Marco Reimann <marcoreimann@outlook.de>
+ */
 class Route extends Facade
 {
     /**

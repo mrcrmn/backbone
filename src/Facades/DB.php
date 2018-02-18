@@ -5,6 +5,12 @@ namespace Backbone\Facades;
 use Backbone\Facades\Facade;
 use Backbone\Database\Database;
 
+/**
+ * The database facade.
+ *
+ * @package Backbone
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 class DB extends Facade
 {
     /**

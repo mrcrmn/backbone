@@ -5,6 +5,12 @@ namespace Backbone\Facades;
 use Backbone\Facades\Facade;
 use duncan3dc\Laravel\BladeInstance;
 
+/**
+ * The facade for the blade template engine.
+ *
+ * @package Backbone
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 class View extends Facade
 {
     /**

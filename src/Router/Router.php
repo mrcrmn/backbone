@@ -11,6 +11,7 @@ use FastRoute\DataGenerator\GroupCountBased as Generator;
 /**
  * The FastRoute Wrapper.
  *
+ * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
 class Router extends RouteCollector

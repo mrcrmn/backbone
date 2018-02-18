@@ -5,6 +5,12 @@ namespace Backbone\Facades;
 use Backbone\Facades\Facade;
 use Symfony\Component\Filesystem\Filesystem;
 
+/**
+ * The facade for the symfony file system.
+ *
+ * @package Backbone
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 class File extends Facade
 {
     /**
@@ -13,7 +19,7 @@ class File extends Facade
      * @var bool
      */
     protected static $hasBeenBooted = false;
-    
+
     /**
      * The Blade instance.
      *

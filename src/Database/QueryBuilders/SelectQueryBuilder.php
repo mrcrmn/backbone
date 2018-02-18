@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of ezpdo.
- * 
- * @author Marco Reimann <marcoreimann@outlook.de>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Backbone\Database\QueryBuilders;
 
 use \Exception;
@@ -17,28 +8,31 @@ use Backbone\Database\QueryBuilders\QueryBuilderInterface;
 use Backbone\Database\Database;
 
 /**
-* 
-*/
+ * Constructs a select query.
+ *
+ * @package Backbone
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterface
 {
-    
+
     /**
      * The connection instance.
-     * 
-     * @var Backbone\Database\Database
+     *
+     * @var \Backbone\Database\Database
      */
     protected $db;
 
     /**
      * The query.
-     * 
+     *
      * @var string
      */
     public $query;
 
     /**
      * The constructor needs all parameters which have been collected by the public API.
-     * 
+     *
      * @param Database $db
      */
     public function __construct(Database $db)
@@ -67,7 +61,7 @@ class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
 
     /**
      * When this function is called, the full query is being compiled and returned.
-     * 
+     *
      * @return string
      */
     public function build()
@@ -80,6 +74,6 @@ class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
         $this->query .= $this->addLimit();
         $this->query .= $this->addOffset();
 
-    	return $this->query;
+        return $this->query;
     }
 }

@@ -1,24 +1,18 @@
 <?php
 
-/**
- * This file is part of ezpdo.
- * 
- * @author Marco Reimann <marcoreimann@outlook.de>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Backbone\Database\QueryBuilders;
 
 use Backbone\Database\QueryBuilders\BaseQueryBuilder;
 
 /**
-* 
-*/
+ * Constructs an insert query.
+ *
+ * @package Backbone
+ * @author Marco Reimann <marcoreimann@outlook.de>
+ */
 class InsertQueryBuilder extends BaseQueryBuilder
 {
-    
+
     /**
      * The table where the data should be inserted.
      * @var string
@@ -38,7 +32,7 @@ class InsertQueryBuilder extends BaseQueryBuilder
     protected $paramString;
 
     public $unboundParameters;
-    
+
     public function __construct(string $table, array $array)
     {
         $this->table = $table;

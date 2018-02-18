@@ -11,6 +11,7 @@ use Backbone\Http\Exceptions\MethodNotAllowedException;
 /**
  * Resolves the Route and returns the info for the controller.
  *
+ * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
 class RouteResolver
@@ -18,15 +19,17 @@ class RouteResolver
     /**
      * Gets the route info from the passed request.
      *
-     * @param  Request $request the request object
-     * @return array the route info [0 => STATUS_CODE, 1 => CONTROLLER::METHOD, 2 => ARGUMENTS]
+     * @param  Request $request The request object
+     * @return array The route info [0 => STATUS_CODE, 1 => CONTROLLER::METHOD, 2 => ARGUMENTS]
      */
     public static function resolve(Request $request)
     {
+        // Get all route files.
         foreach (getConfig('route') as $routePath) {
             require_once $routePath;
         }
 
+        // Dispatch the route and get info.
         $routeInfo = Route::dispatch(self::getHttpMethod($request), $request->getRequestUri());
         self::resolveStatusCode($routeInfo[0]);
 
@@ -36,7 +39,7 @@ class RouteResolver
     /**
      * Gets the HTTP Request method from the Request Object.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request the request which contains info about the method
+     * @param \Symfony\Component\HttpFoundation\Request $request The request which contains info about the method
      * @return string The Http Method
      */
     protected static function getHttpMethod($request)
@@ -45,7 +48,7 @@ class RouteResolver
     }
 
     /**
-     * resolves the status code and throws exceptions.
+     * Resolves the status code and throws exceptions.
      *
      * @param  int $status The status code
      *
@@ -56,7 +59,7 @@ class RouteResolver
     protected static function resolveStatusCode($status)
     {
         if ($status === Dispatcher::NOT_FOUND) {
-            throw new RouteNotFoundException("Route not found");
+            throw new RouteNotFoundException("Route not found :(");
         }
 
         if ($status === Dispatcher::METHOD_NOT_ALLOWED) {

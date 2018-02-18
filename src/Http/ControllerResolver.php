@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Static class which resolves a controller and calls it.
  *
+ * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
 class ControllerResolver
@@ -24,14 +25,15 @@ class ControllerResolver
      *
      * @param  \Closure|string $callback The controller string
      * @param  \Symfony\Component\HttpFoundation\Request $request The Request object
-     * @return string the response content
+     * @return string The response content
      */
     public static function resolve($callback, Request $request)
     {
+        // If the callback is a closure just call it.
         if ($callback instanceof Closure) {
             return $callback($request);
         }
-        
+
         $controllerInfoArray = self::getControllerInfoArray($callback);
 
         $controller = self::getControllerInstanceFromInfo($controllerInfoArray);
@@ -55,7 +57,7 @@ class ControllerResolver
     /**
      * Gets a new controller instance.
      *
-     * @param  array $array the controller array which contains the controller name and method name.
+     * @param  array $array The controller array which contains the controller name and method name.
      * @return \App\Http\Controller The controller instance
      */
     protected static function getControllerInstanceFromInfo($array)

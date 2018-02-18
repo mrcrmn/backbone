@@ -5,6 +5,7 @@ namespace Backbone\Facades;
 /**
  * The Facade Base Class.
  *
+ * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
 abstract class Facade

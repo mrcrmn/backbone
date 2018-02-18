@@ -15,6 +15,7 @@ use Backbone\Http\Exceptions\MethodNotAllowedException;
 /**
  * The kernel class which turns requests into responses.
  *
+ * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
 class Kernel implements HttpKernelInterface
@@ -52,15 +53,21 @@ class Kernel implements HttpKernelInterface
             $this->setRequestAttributes($routeInfo[2]);
         }
 
-        $content = ControllerResolver::resolve($routeInfo[1], $this->request);
-
-        return new Response($content, Response::HTTP_OK);
+        try {
+            $content = ControllerResolver::resolve($routeInfo[1], $this->request);
+        } catch (Exception $e) {
+            if (! env('APP_DEBUG', false)) {
+                return $this->abort(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
+            }
+        } finally {
+            return new Response($content, Response::HTTP_OK);
+        }
     }
 
     /**
      * Sets the Request attributes based on the route info.
      *
-     * @param array $attributes The dynamic Uri Attributes
+     * @param array $attributes The dynamic uri attributes
      * @return void
      */
     protected function setRequestAttributes($attributes)
@@ -69,9 +76,9 @@ class Kernel implements HttpKernelInterface
     }
 
     /**
-     * Aborts the request and sends an error response
+     * Aborts the request and sends an error response.
      *
-     * @param  int $status HTTP status code
+     * @param  int $status The HTTP status code
      * @param  string $msg The error message to display
      * @return \Symfony\Component\HttpFoundation\Response The Response instance
      */
