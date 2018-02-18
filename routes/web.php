@@ -8,4 +8,4 @@ use Backbone\Facades\Route;
  * -------------------------------------------------------
  */
 
-Route::get('/', 'ExampleController::example');
+Route::view('/', 'example');

@@ -2,6 +2,7 @@
 
 namespace Backbone\Http;
 
+use Closure;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,13 +22,17 @@ class ControllerResolver
     /**
      * Resolves the Controller and calls it.
      *
-     * @param  string $string The controller string
-     * @param  Request $request The Request object
+     * @param  \Closure|string $callback The controller string
+     * @param  \Symfony\Component\HttpFoundation\Request $request The Request object
      * @return string the response content
      */
-    public static function resolve($string, Request $request)
+    public static function resolve($callback, Request $request)
     {
-        $controllerInfoArray = self::getControllerInfoArray($string);
+        if ($callback instanceof Closure) {
+            return $callback($request);
+        }
+        
+        $controllerInfoArray = self::getControllerInfoArray($callback);
 
         $controller = self::getControllerInstanceFromInfo($controllerInfoArray);
         $method = self::getMethodFromInfo($controllerInfoArray);

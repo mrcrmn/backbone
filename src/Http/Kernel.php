@@ -2,6 +2,7 @@
 
 namespace Backbone\Http;
 
+use Exception;
 use Backbone\Facades\View;
 use Backbone\Http\RouteResolver;
 use Backbone\Http\ControllerResolver;
@@ -18,7 +19,6 @@ use Backbone\Http\Exceptions\MethodNotAllowedException;
  */
 class Kernel implements HttpKernelInterface
 {
-
     /**
      * The Request Object.
      *

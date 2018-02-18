@@ -28,7 +28,6 @@ class RouteResolver
         }
 
         $routeInfo = Route::dispatch(self::getHttpMethod($request), $request->getRequestUri());
-
         self::resolveStatusCode($routeInfo[0]);
 
         return $routeInfo;
