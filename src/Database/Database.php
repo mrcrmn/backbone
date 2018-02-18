@@ -1,24 +1,16 @@
 <?php
 
-/**
- * This file is part of ezpdo.
- *
- * @author Marco Reimann <marcoreimann@outlook.de>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Backbone\Database;
 
 use Backbone\Database\Collector;
 
 /**
 * The main class which hosts the public API.
+*
+* @author Marco Reimann <marcoreimann@outlook.de>
 */
 class Database extends Collector
 {
-
     /**
      * INSERT|SELECT|UPDATE|DELETE
      *
