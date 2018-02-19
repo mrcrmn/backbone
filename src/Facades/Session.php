@@ -3,15 +3,15 @@
 namespace Backbone\Facades;
 
 use Backbone\Facades\Facade;
-use Backbone\Database\Database;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * The database facade.
+ * The session facade.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class DB extends Facade
+class Session extends Facade
 {
     /**
      * Determine if the Facade has been booted.
@@ -21,11 +21,11 @@ class DB extends Facade
     public static $hasBeenBooted = false;
 
     /**
-     * The Database instance.
+     * The Session instance.
      *
-     * @var \Backbone\Database\Database
+     * @var \Symfony\Component\HttpFoundation\Session\Session;
      */
-    protected static $db;
+    protected static $session;
 
     /**
      * Boots the Facade.
@@ -34,23 +34,17 @@ class DB extends Facade
      */
     protected static function boot()
     {
-        self::$db = new Database();
-        self::$db->connect(
-            env('MYSQL_HOST', '127.0.0.1'),
-            env('MYSQL_USER', 'root'),
-            env('MYSQL_PASSWORD', ''),
-            env('MYSQL_PORT', '3306'),
-            env('MYSQL_DATABASE', 'database')
-        );
+        self::$session = new Session();
+        self::$session->start();
     }
 
     /**
      * Returns the service to the facade.
      *
-     * @return \Backbone\Database\Database
+     * @return \Symfony\Component\HttpFoundation\Session\Session;
      */
     protected static function getService()
     {
-        return self::$db;
+        return self::$session;
     }
 }

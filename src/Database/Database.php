@@ -335,4 +335,14 @@ class Database extends Collector
     {
         return $this->execPreparedStatement();
     }
+
+    /**
+     * Closes the connection.
+     *
+     * @return void
+     */
+    public function close()
+    {
+        $this->closeConnection();
+    }
 }

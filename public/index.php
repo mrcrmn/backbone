@@ -24,3 +24,8 @@ $response = $kernel->handle($request);
  * Finally we send the response to the client.
  */
 $response->send();
+
+/**
+ * Terminate the kernel.
+ */
+$kernel->terminate($request, $response);

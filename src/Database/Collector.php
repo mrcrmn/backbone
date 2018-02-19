@@ -284,4 +284,14 @@ class Collector
 
         return $this->builder->build();
     }
+
+    /**
+     * Closes the connection.
+     *
+     * @return void
+     */
+    protected function closeConnection()
+    {
+        $this->connection = null;
+    }
 }

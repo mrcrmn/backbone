@@ -3,6 +3,7 @@
 namespace Backbone\Http;
 
 use Exception;
+use Backbone\Facades\DB;
 use Backbone\Facades\View;
 use Backbone\Http\RouteResolver;
 use Backbone\Http\ControllerResolver;
@@ -60,7 +61,7 @@ class Kernel implements HttpKernelInterface
                 return $this->abort(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
             }
         } finally {
-            return new Response($content, Response::HTTP_OK);
+            return new Response($content, Response::HTTP_OK, ['content-type' => 'text/html']);
         }
     }
 
@@ -89,5 +90,21 @@ class Kernel implements HttpKernelInterface
             $status,
             ['content-type' => 'text/html']
         );
+    }
+
+    /**
+     * Terminates the kernel.
+     *
+     * @param  \Symfony\Component\HttpFoundation\Request   $request  The request object
+     * @param  \Symfony\Component\HttpFoundation\Response  $response The response obeject
+     * @return void
+     */
+    public function terminate(Request $request, Response $response)
+    {
+        if (DB::$hasBeenBooted) {
+            DB::close();
+        }
+
+        die();
     }
 }
