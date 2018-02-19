@@ -31,9 +31,10 @@ class Router extends RouteCollector
     /**
      * A special method, which allows the route to directly render a view.
      *
-     * @param  string $route The route
-     * @param  string $view The view which should be rendered
-     * @param  array $data An array of data which should be passed to the route
+     * @param  string $route The route.
+     * @param  string $view The view which should be rendered.
+     *
+     * @param  array $data An array of data which should be passed to the route.
      *
      * @return string The Response content.
      */
@@ -47,10 +48,10 @@ class Router extends RouteCollector
     /**
      * Dispatches the router and returns the matched info and dynamic attributes.
      *
-     * @param  string $method The HTTP method
-     * @param  string $uri The request uri
+     * @param  string $method The HTTP method.
+     * @param  string $uri The request uri.
      *
-     * @return array The route info
+     * @return array The route info.
      */
     public function dispatch($method, $uri)
     {

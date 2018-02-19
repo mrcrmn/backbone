@@ -9,7 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateCommandCommand extends Command
 {
-
     public function configure()
     {
         $this
@@ -25,7 +24,6 @@ class CreateCommandCommand extends Command
         $filePath = __DIR__ . '/../../app/Commands/' . $name . '.php';
 
         if (! file_exists($filePath)) {
-
             $string = file_get_contents(__DIR__ . '/../resources/templates/Command.txt');
             $controllerString = sprintf($string, $name);
 

@@ -15,10 +15,12 @@ use Backbone\Services\Route;
  |
  */
 
-Route::get('/redirect', function() {
+Route::get('/redirect', function () {
     return redirect('/');
 });
 
-Route::get('/', function($request) {
-    return view('example');
+Route::view('/', 'example');
+
+Route::get('/param/{param}', function ($request) {
+    return $request->attributes->get('param');
 });

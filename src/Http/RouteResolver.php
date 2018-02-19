@@ -3,8 +3,8 @@
 namespace Backbone\Http;
 
 use FastRoute\Dispatcher;
+use Backbone\Http\Request;
 use Backbone\Services\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Backbone\Http\Exceptions\RouteNotFoundException;
 use Backbone\Http\Exceptions\MethodNotAllowedException;
 
@@ -19,7 +19,8 @@ class RouteResolver
     /**
      * Gets the route info from the passed request.
      *
-     * @param  Request $request The request object
+     * @param  \Backbone\Http\Request $request The request object.
+     *
      * @return array The route info [0 => STATUS_CODE, 1 => CONTROLLER::METHOD, 2 => ARGUMENTS]
      */
     public static function resolve(Request $request)
@@ -33,14 +34,20 @@ class RouteResolver
         $routeInfo = Route::dispatch(self::getHttpMethod($request), $request->getRequestUri());
         self::resolveStatusCode($routeInfo[0]);
 
+        // If the routes contains attributes, add them to the attributes request parameter bag.
+        if (isset($routeInfo[2])) {
+            $request->setAttributes($routeInfo[2]);
+        }
+
         return $routeInfo;
     }
 
     /**
      * Gets the HTTP Request method from the Request Object.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request The request which contains info about the method
-     * @return string The Http Method
+     * @param  \Backbone\Http\Request $request The request which contains info about the method.
+     *
+     * @return string The Http Method.
      */
     protected static function getHttpMethod($request)
     {
@@ -50,11 +57,12 @@ class RouteResolver
     /**
      * Resolves the status code and throws exceptions.
      *
-     * @param  int $status The status code
+     * @param  int $status The status code.
      *
-     * @throws \Backbone\Http\Exceptions\RouteNotFoundException Thrown when the route is not found
-     * @throws \Backbone\Http\Exceptions\MethodNotAllowedException Thrown when method is not allowed
      * @return void
+     *
+     * @throws RouteNotFoundException Thrown when the route is not found.
+     * @throws MethodNotAllowedException Thrown when method is not allowed.
      */
     protected static function resolveStatusCode($status)
     {

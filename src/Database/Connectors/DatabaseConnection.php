@@ -2,7 +2,7 @@
 
 /**
  * This file is part of ezpdo.
- * 
+ *
  * @author Marco Reimann <marcoreimann@outlook.de>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -16,7 +16,6 @@ namespace Backbone\Database\Connectors;
 */
 class DatabaseConnection extends \PDO
 {
-
     protected $driver = "mysql";
 
     protected $dns;

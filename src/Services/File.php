@@ -36,5 +36,4 @@ class File extends Service
     {
         static::$app->register(self::SERVICE_NAME, new Filesystem());
     }
-
 }

@@ -8,7 +8,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ServeCommand extends Command
 {
-
     public function configure()
     {
         $this

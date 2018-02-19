@@ -8,7 +8,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ServeCommand extends Command
 {
-
     public function configure()
     {
         $this
@@ -18,6 +17,5 @@ class ServeCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        
     }
 }

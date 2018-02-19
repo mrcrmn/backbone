@@ -63,5 +63,4 @@ abstract class Service
 
         return self::getService()->$method(...$arguments);
     }
-
 }
