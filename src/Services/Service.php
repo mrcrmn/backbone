@@ -1,16 +1,16 @@
 <?php
 
-namespace Backbone\Facades;
+namespace Backbone\Services;
 
 use Backbone\Foundation\Application;
 
 /**
- * The Facade Base Class.
+ * The Service Base Class.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-abstract class Facade
+abstract class Service
 {
     /**
      * The application instance
@@ -20,7 +20,7 @@ abstract class Facade
     protected static $app;
 
     /**
-     * The method needed to boot the Facade.
+     * The method needed to boot the Service.
      *
      * @return void
      */
@@ -38,7 +38,7 @@ abstract class Facade
     }
 
     /**
-     * Returns the service to the facade.
+     * Returns the service to the Service.
      *
      * @return $app
      */

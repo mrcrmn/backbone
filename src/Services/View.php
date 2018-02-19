@@ -1,17 +1,17 @@
 <?php
 
-namespace Backbone\Facades;
+namespace Backbone\Services;
 
-use Backbone\Facades\Facade;
+use Backbone\Services\Service;
 use duncan3dc\Laravel\BladeInstance;
 
 /**
- * The facade for the blade template engine.
+ * The Service for the blade template engine.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class View extends Facade
+class View extends Service
 {
     /**
      * The name of the service.
@@ -21,14 +21,14 @@ class View extends Facade
     protected const SERVICE_NAME = 'view';
 
     /**
-     * Determine if the Facade has been booted.
+     * Determine if the Service has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
 
     /**
-     * Boots the Facade.
+     * Boots the Service.
      *
      * @return void
      */

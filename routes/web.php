@@ -1,6 +1,6 @@
 <?php
 
-use Backbone\Facades\Route;
+use Backbone\Services\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse as Redirect;
 
 /*
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse as Redirect;
  | --------------------------------------------------------------------------------
  |
  | You can register your routes here, simply use the wanted HTTP verb as the
- | method on the route facade. Alternatively you may also use the view
+ | method on the route Service. Alternatively you may also use the view
  | method to return a simple view instead of going through some
  | complicated controller logic.
  |

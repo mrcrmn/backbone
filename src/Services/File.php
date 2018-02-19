@@ -1,17 +1,17 @@
 <?php
 
-namespace Backbone\Facades;
+namespace Backbone\Services;
 
-use Backbone\Facades\Facade;
+use Backbone\Services\Service;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * The facade for the symfony file system.
+ * The Service for the symfony file system.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class File extends Facade
+class File extends Service
 {
     /**
      * The name of the service.
@@ -21,14 +21,14 @@ class File extends Facade
     protected const SERVICE_NAME = 'file';
 
     /**
-     * Determine if the Facade has been booted.
+     * Determine if the Service has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
 
     /**
-     * Boots the Facade.
+     * Boots the Service.
      *
      * @return void
      */

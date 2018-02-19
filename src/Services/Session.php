@@ -1,17 +1,17 @@
 <?php
 
-namespace Backbone\Facades;
+namespace Backbone\Services;
 
-use Backbone\Facades\Facade;
+use Backbone\Services\Service;
 use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
 
 /**
- * The session facade.
+ * The session Service.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class Session extends Facade
+class Session extends Service
 {
     /**
      * The name of the service.
@@ -21,14 +21,14 @@ class Session extends Facade
     protected const SERVICE_NAME = 'session';
 
     /**
-     * Determine if the Facade has been booted.
+     * Determine if the Service has been booted.
      *
      * @var bool
      */
     public static $hasBeenBooted = false;
 
     /**
-     * Boots the Facade.
+     * Boots the Service.
      *
      * @return void
      */

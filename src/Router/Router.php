@@ -2,7 +2,7 @@
 
 namespace Backbone\Router;
 
-use Backbone\Facades\View;
+use Backbone\Services\View;
 use FastRoute\RouteCollector;
 use FastRoute\RouteParser\Std as RouteParser;
 use FastRoute\Dispatcher\GroupCountBased as Dispatcher;

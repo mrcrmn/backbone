@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'DB' => 'Backbone\\Facades\\DB',
-    'File' => 'Backbone\\Facades\\File',
-    'Log' => 'Backbone\\Facades\\Log',
-    'Route' => 'Backbone\\Facades\\Route',
-    'Session' => 'Backbone\\Facades\\Session',
-    'View' => 'Backbone\\Facades\\View'
+    'DB' => 'Backbone\\Services\\DB',
+    'File' => 'Backbone\\Services\\File',
+    'Log' => 'Backbone\\Services\\Log',
+    'Route' => 'Backbone\\Services\\Route',
+    'Session' => 'Backbone\\Services\\Session',
+    'View' => 'Backbone\\Services\\View'
 ];

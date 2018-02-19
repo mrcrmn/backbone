@@ -3,8 +3,8 @@
 namespace Backbone\Http;
 
 use Exception;
-use Backbone\Facades\DB;
-use Backbone\Facades\View;
+use Backbone\Services\DB;
+use Backbone\Services\View;
 use Backbone\Http\RouteResolver;
 use Backbone\Foundation\Application;
 use Backbone\Http\ControllerResolver;

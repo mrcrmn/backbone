@@ -1,17 +1,17 @@
 <?php
 
-namespace Backbone\Facades;
+namespace Backbone\Services;
 
 use Backbone\Router\Router;
-use Backbone\Facades\Facade;
+use Backbone\Services\Service;
 
 /**
- * The Route Facade.
+ * The Route Service.
  *
  * @package Backbone
  * @author  Marco Reimann <marcoreimann@outlook.de>
  */
-class Route extends Facade
+class Route extends Service
 {
     /**
      * The name of the service.
@@ -21,14 +21,14 @@ class Route extends Facade
     protected const SERVICE_NAME = 'route';
 
     /**
-     * Determine if the Facade has been booted.
+     * Determine if the Service has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
 
     /**
-     * Boots the Facade.
+     * Boots the Service.
      *
      * @return void
      */

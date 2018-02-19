@@ -6,8 +6,6 @@
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
 
-use Backbone\Facades\View;
-
 if (! function_exists('dd')) {
     function dd($var)
     {
@@ -57,6 +55,6 @@ if (! function_exists('getConfig')) {
 if (! function_exists('view')) {
     function view($view, $data = [])
     {
-        return View::render($view, $data);
+        return Backbone\Services\View::render($view, $data);
     }
 }

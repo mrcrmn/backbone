@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use Backbone\Facades\View;
+use Backbone\Services\View;
 use Symfony\Component\HttpFoundation\Request;
 
 class ExampleController extends Controller

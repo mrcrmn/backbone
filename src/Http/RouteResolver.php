@@ -3,7 +3,7 @@
 namespace Backbone\Http;
 
 use FastRoute\Dispatcher;
-use Backbone\Facades\Route;
+use Backbone\Services\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Backbone\Http\Exceptions\RouteNotFoundException;
 use Backbone\Http\Exceptions\MethodNotAllowedException;

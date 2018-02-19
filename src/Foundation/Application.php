@@ -2,7 +2,7 @@
 
 namespace Backbone\Foundation;
 
-use Backbone\Facades\Facade;
+use Backbone\Services\Service;
 use Psr\Container\ContainerInterface;
 use Backbone\Foundation\Exceptions\ServiceNotFoundException;
 use Backbone\Foundation\Exceptions\ServiceAlreadyRegisteredException;
@@ -24,7 +24,7 @@ class Application implements ContainerInterface
 
     public function __construct()
     {
-        Facade::setApplication($this);
+        Service::setApplication($this);
     }
 
     /**

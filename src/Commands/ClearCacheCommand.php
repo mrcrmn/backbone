@@ -2,7 +2,7 @@
 
 namespace Backbone\Commands;
 
-// use Backbone\Facades\File;
+// use Backbone\Services\File;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

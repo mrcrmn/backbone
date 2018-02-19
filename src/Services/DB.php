@@ -1,17 +1,17 @@
 <?php
 
-namespace Backbone\Facades;
+namespace Backbone\Services;
 
-use Backbone\Facades\Facade;
+use Backbone\Services\Service;
 use Backbone\Database\Database;
 
 /**
- * The database facade.
+ * The database Service.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class DB extends Facade
+class DB extends Service
 {
     /**
      * The name of the service.
@@ -21,14 +21,14 @@ class DB extends Facade
     protected const SERVICE_NAME = 'DB';
 
     /**
-     * Determine if the Facade has been booted.
+     * Determine if the Service has been booted.
      *
      * @var bool
      */
     public static $hasBeenBooted = false;
 
     /**
-     * Boots the Facade.
+     * Boots the Service.
      *
      * @return void
      */

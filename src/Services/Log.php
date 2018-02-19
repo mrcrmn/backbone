@@ -1,18 +1,18 @@
 <?php
 
-namespace Backbone\Facades;
+namespace Backbone\Services;
 
 use Monolog\Logger;
-use Backbone\Facades\Facade;
+use Backbone\Services\Service;
 use Monolog\Handler\StreamHandler;
 
 /**
- * The facade for the logger.
+ * The Service for the logger.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class Log extends Facade
+class Log extends Service
 {
     /**
      * The name of the service.
@@ -22,14 +22,14 @@ class Log extends Facade
     protected const SERVICE_NAME = 'log';
 
     /**
-     * Determine if the Facade has been booted.
+     * Determine if the Service has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
 
     /**
-     * Boots the Facade.
+     * Boots the Service.
      *
      * @return void
      */

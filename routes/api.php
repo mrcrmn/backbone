@@ -1,6 +1,6 @@
 <?php
 
-use Backbone\Facades\Route;
+use Backbone\Services\Route;
 
 /*
  | --------------------------------------------------------------------------------
