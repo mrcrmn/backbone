@@ -1,6 +1,5 @@
 <?php
 
-use Backbone\Http\Response;
 use Backbone\Services\Route;
 
 /*
@@ -15,12 +14,12 @@ use Backbone\Services\Route;
  |
  */
 
+Route::view('/', 'example');
+
 Route::get('/redirect', function () {
     return redirect('/');
 });
 
-Route::view('/', 'example');
-
 Route::get('/param/{param}', function ($request) {
-    return $request->attributes->get('param');
+    return $request->attr('param');
 });

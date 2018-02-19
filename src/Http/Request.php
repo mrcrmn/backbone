@@ -33,6 +33,6 @@ class Request extends SymfonyRequest
      */
     public function attr($key)
     {
-        return $this->attributes->get[$key];
+        return $this->attributes->get($key);
     }
 }

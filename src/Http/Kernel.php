@@ -73,9 +73,7 @@ class Kernel
                 return $content;
             }
         } catch (Exception $e) {
-            if (! env('APP_DEBUG', false)) {
-                return $this->abort(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
-            }
+            return $this->abort(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
         }
 
         return new Response($content, Response::HTTP_OK, ['content-type' => 'text/html']);
