@@ -1,12 +1,14 @@
 <?php
 
+define('START', microtime(true));
+
 /**
  * First we'll bootstrap needed functions and debug methods.
  */
 require_once __DIR__ . '/../bootstrap/bootstrap.php';
 
 /**
- * Next we'll create a new Symfony Request Object fromn the Globals.
+ * Next we'll create a new Symfony Request Object from the Globals.
  */
 $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
 

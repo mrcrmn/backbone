@@ -55,7 +55,7 @@ if (! function_exists('getConfig')) {
 }
 
 if (! function_exists('view')) {
-    function view($view, $data)
+    function view($view, $data = [])
     {
         return View::render($view, $data);
     }

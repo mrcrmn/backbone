@@ -2,30 +2,31 @@
 
 namespace Backbone\Facades;
 
+use Monolog\Logger;
 use Backbone\Facades\Facade;
-use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
+use Monolog\Handler\StreamHandler;
 
 /**
- * The session facade.
+ * The facade for the logger.
  *
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class Session extends Facade
+class Log extends Facade
 {
     /**
      * Determine if the Facade has been booted.
      *
      * @var bool
      */
-    public static $hasBeenBooted = false;
+    protected static $hasBeenBooted = false;
 
     /**
-     * The Session instance.
+     * The Log instance.
      *
-     * @var \Symfony\Component\HttpFoundation\Session\Session;
+     * @var \Monolog\Logger
      */
-    protected static $session;
+    protected static $logger;
 
     /**
      * Boots the Facade.
@@ -34,17 +35,17 @@ class Session extends Facade
      */
     protected static function boot()
     {
-        self::$session = new SymfonySession();
-        self::$session->start();
+        self::$logger = new Logger('logger');
+        self::$logger->pushHandler(new StreamHandler(base_path('storage/logs/log.txt')));
     }
 
     /**
      * Returns the service to the facade.
      *
-     * @return \Symfony\Component\HttpFoundation\Session\Session;
+     * @return \Monolog\Logger
      */
     protected static function getService()
     {
-        return self::$session;
+        return self::$logger;
     }
 }

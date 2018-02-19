@@ -60,9 +60,9 @@ class Kernel implements HttpKernelInterface
             if (! env('APP_DEBUG', false)) {
                 return $this->abort(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
             }
-        } finally {
-            return new Response($content, Response::HTTP_OK, ['content-type' => 'text/html']);
         }
+
+        return new Response($content, Response::HTTP_OK, ['content-type' => 'text/html']);
     }
 
     /**
@@ -104,6 +104,9 @@ class Kernel implements HttpKernelInterface
         if (DB::$hasBeenBooted) {
             DB::close();
         }
+
+        define('END', microtime(true));
+        $time = (END - START) * 1000;
 
         die();
     }
