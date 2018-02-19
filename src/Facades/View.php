@@ -14,18 +14,18 @@ use duncan3dc\Laravel\BladeInstance;
 class View extends Facade
 {
     /**
+     * The name of the service.
+     *
+     * @var string
+     */
+    protected const SERVICE_NAME = 'view';
+
+    /**
      * Determine if the Facade has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
-
-    /**
-     * The Blade instance.
-     *
-     * @var \duncan3dc\Laravel\BladeInstance
-     */
-    protected static $blade;
 
     /**
      * Boots the Facade.
@@ -35,16 +35,6 @@ class View extends Facade
     protected static function boot()
     {
         $paths = getConfig('view');
-        self::$blade = new BladeInstance($paths['templates'], $paths['cache']);
-    }
-
-    /**
-     * Returns the service to the facade.
-     *
-     * @return \duncan3dc\Laravel\BladeInstance the Blade instance
-     */
-    protected static function getService()
-    {
-        return self::$blade;
+        static::$app->register(self::SERVICE_NAME, new BladeInstance($paths['templates'], $paths['cache']));
     }
 }

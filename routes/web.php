@@ -1,6 +1,5 @@
 <?php
 
-use Backbone\Facades\Log;
 use Backbone\Facades\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse as Redirect;
 
@@ -20,6 +19,6 @@ Route::get('/redirect', function() {
     return new Redirect('/');
 });
 
-Route::get('/', function() {
+Route::get('/', function($request) {
     return view('example');
 });

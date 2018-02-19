@@ -2,6 +2,8 @@
 
 namespace Backbone\Facades;
 
+use Backbone\Foundation\Application;
+
 /**
  * The Facade Base Class.
  *
@@ -11,6 +13,13 @@ namespace Backbone\Facades;
 abstract class Facade
 {
     /**
+     * The application instance
+     *
+     * @var \Backbone\Foundation\Application
+     */
+    protected static $app;
+
+    /**
      * The method needed to boot the Facade.
      *
      * @return void
@@ -18,11 +27,25 @@ abstract class Facade
     abstract protected static function boot();
 
     /**
-     * The function which returns the booted service.
+     * Sets the application instance from the bootstrapper.
      *
-     * @var mixed
+     * @param  \Backbone\Foundation\Application $app The application instance
+     * @return void
      */
-    abstract protected static function getService();
+    public static function setApplication(Application $app)
+    {
+        static::$app = $app;
+    }
+
+    /**
+     * Returns the service to the facade.
+     *
+     * @return $app
+     */
+    private static function getService()
+    {
+        return self::$app->get(static::SERVICE_NAME);
+    }
 
     /**
      * The magic method which proxies the method call to the service.
@@ -38,6 +61,7 @@ abstract class Facade
             static::$hasBeenBooted = true;
         }
 
-        return static::getService()->$method(...$arguments);
+        return self::getService()->$method(...$arguments);
     }
+
 }

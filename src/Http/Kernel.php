@@ -6,6 +6,7 @@ use Exception;
 use Backbone\Facades\DB;
 use Backbone\Facades\View;
 use Backbone\Http\RouteResolver;
+use Backbone\Foundation\Application;
 use Backbone\Http\ControllerResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,13 @@ class Kernel implements HttpKernelInterface
      * @var \Symfony\Component\HttpFoundation\Request
      */
     public $request;
+
+    public $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * The main function which turns the Request into a Response.

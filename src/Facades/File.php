@@ -14,18 +14,18 @@ use Symfony\Component\Filesystem\Filesystem;
 class File extends Facade
 {
     /**
+     * The name of the service.
+     *
+     * @var string
+     */
+    protected const SERVICE_NAME = 'file';
+
+    /**
      * Determine if the Facade has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
-
-    /**
-     * The Blade instance.
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
-     */
-    protected static $filesystem;
 
     /**
      * Boots the Facade.
@@ -34,16 +34,7 @@ class File extends Facade
      */
     protected static function boot()
     {
-        self::$filesystem = new Filesystem();
+        static::$app->register(self::SERVICE_NAME, new Filesystem());
     }
 
-    /**
-     * Returns the service to the facade.
-     *
-     * @return \Symfony\Component\Filesystem\Filesystem
-     */
-    protected static function getService()
-    {
-        return self::$filesystem;
-    }
 }

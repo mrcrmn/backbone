@@ -14,18 +14,18 @@ use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
 class Session extends Facade
 {
     /**
+     * The name of the service.
+     *
+     * @var string
+     */
+    protected const SERVICE_NAME = 'session';
+
+    /**
      * Determine if the Facade has been booted.
      *
      * @var bool
      */
     public static $hasBeenBooted = false;
-
-    /**
-     * The Session instance.
-     *
-     * @var \Symfony\Component\HttpFoundation\Session\Session;
-     */
-    protected static $session;
 
     /**
      * Boots the Facade.
@@ -34,17 +34,8 @@ class Session extends Facade
      */
     protected static function boot()
     {
-        self::$session = new SymfonySession();
-        self::$session->start();
-    }
-
-    /**
-     * Returns the service to the facade.
-     *
-     * @return \Symfony\Component\HttpFoundation\Session\Session;
-     */
-    protected static function getService()
-    {
-        return self::$session;
+        $session = new SymfonySession();
+        $session->start();
+        static::$app->register(self::SERVICE_NAME, $session);
     }
 }

@@ -15,18 +15,18 @@ use Monolog\Handler\StreamHandler;
 class Log extends Facade
 {
     /**
+     * The name of the service.
+     *
+     * @var string
+     */
+    protected const SERVICE_NAME = 'log';
+
+    /**
      * Determine if the Facade has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
-
-    /**
-     * The Log instance.
-     *
-     * @var \Monolog\Logger
-     */
-    protected static $logger;
 
     /**
      * Boots the Facade.
@@ -35,17 +35,9 @@ class Log extends Facade
      */
     protected static function boot()
     {
-        self::$logger = new Logger('logger');
-        self::$logger->pushHandler(new StreamHandler(base_path('storage/logs/log.txt')));
-    }
+        $logger = new Logger('logger');
+        $logger->pushHandler(new StreamHandler(base_path('storage/logs/log.txt')));
 
-    /**
-     * Returns the service to the facade.
-     *
-     * @return \Monolog\Logger
-     */
-    protected static function getService()
-    {
-        return self::$logger;
+        static::$app->register(self::SERVICE_NAME, $logger);
     }
 }

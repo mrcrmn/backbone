@@ -14,18 +14,18 @@ use Backbone\Facades\Facade;
 class Route extends Facade
 {
     /**
+     * The name of the service.
+     *
+     * @var string
+     */
+    protected const SERVICE_NAME = 'route';
+
+    /**
      * Determine if the Facade has been booted.
      *
      * @var bool
      */
     protected static $hasBeenBooted = false;
-
-    /**
-     * The Router instance.
-     *
-     * @var \Backbone\Router\Router
-     */
-    protected static $router;
 
     /**
      * Boots the Facade.
@@ -34,16 +34,6 @@ class Route extends Facade
      */
     protected static function boot()
     {
-        self::$router = new Router;
-    }
-
-    /**
-     * Returns the service to the facade.
-     *
-     * @return \Backbone\Router\Router
-     */
-    protected static function getService()
-    {
-        return self::$router;
+        static::$app->register(self::SERVICE_NAME, new Router());
     }
 }
