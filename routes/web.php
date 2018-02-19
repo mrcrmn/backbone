@@ -1,7 +1,7 @@
 <?php
 
+use Backbone\Http\Response;
 use Backbone\Services\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse as Redirect;
 
 /*
  | --------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse as Redirect;
  */
 
 Route::get('/redirect', function() {
-    return new Redirect('/');
+    return redirect('/');
 });
 
 Route::get('/', function($request) {

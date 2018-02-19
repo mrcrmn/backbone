@@ -70,11 +70,11 @@ class Kernel implements HttpKernelInterface
 
         // If the routes contains attributes, add them to the attributes request parameter bag.
         if (isset($routeInfo[2])) {
-            $this->setRequestAttributes($routeInfo[2]);
+            $this->request->setAttributes($routeInfo[2]);
         }
+        $content = ControllerResolver::resolve($routeInfo[1], $this->request);
 
         try {
-            $content = ControllerResolver::resolve($routeInfo[1], $this->request);
         } catch (Exception $e) {
             if (! env('APP_DEBUG', false)) {
                 return $this->abort(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -82,17 +82,6 @@ class Kernel implements HttpKernelInterface
         }
 
         return new Response($content, Response::HTTP_OK, ['content-type' => 'text/html']);
-    }
-
-    /**
-     * Sets the Request attributes based on the route info.
-     *
-     * @param array $attributes The dynamic uri attributes
-     * @return void
-     */
-    protected function setRequestAttributes($attributes)
-    {
-        $this->request->attributes->add($attributes);
     }
 
     /**

@@ -58,3 +58,10 @@ if (! function_exists('view')) {
         return Backbone\Services\View::render($view, $data);
     }
 }
+
+if (! function_exists('redirect')) {
+    function redirect($uri)
+    {
+        return Backbone\Http\Response::redirect($uri);
+    }
+}

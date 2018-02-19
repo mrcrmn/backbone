@@ -10,7 +10,7 @@ require_once __DIR__ . '/../bootstrap/bootstrap.php';
 /**
  * Next we'll create a new Symfony Request Object from the Globals.
  */
-$request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
+$request = Backbone\Http\Request::createFromGlobals();
 
 /**
  * After that we instanciate the Kernel.
