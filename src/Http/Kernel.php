@@ -4,6 +4,7 @@ namespace Backbone\Http;
 
 use Exception;
 use Backbone\Services\DB;
+use Backbone\Services\Log;
 use Backbone\Services\View;
 use Backbone\Http\RouteResolver;
 use Backbone\Foundation\Application;
@@ -29,11 +30,21 @@ class Kernel implements HttpKernelInterface
      */
     public $request;
 
+    /**
+     * The app instance.
+     *
+     * @var \Backbone\Foundation\Application
+     */
     public $app;
 
-    public function __construct(Application $app)
+    /**
+     * When a new kernel is created, we also create a new App container instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $this->app = $app;
+        $this->app = new Application;
     }
 
     /**
@@ -116,6 +127,7 @@ class Kernel implements HttpKernelInterface
         define('END', microtime(true));
         $time = (END - START) * 1000;
 
+        Log::debug("Request time was {$time}ms.");
         die();
     }
 }

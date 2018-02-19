@@ -30,7 +30,7 @@ if (! function_exists('asset')) {
         $realpath = base_path('public/' . $file);
 
         if (! file_exists($realpath)) {
-            return false;
+            throw new Exception("File '{$file}' doesn't exist.");
         }
 
         $version = '?v=' . hash('adler32', filemtime($realpath));

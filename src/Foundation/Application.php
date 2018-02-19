@@ -22,6 +22,11 @@ class Application implements ContainerInterface
      */
     public $services = [];
 
+    /**
+     * Sets the service facade application instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         Service::setApplication($this);
@@ -66,6 +71,6 @@ class Application implements ContainerInterface
      */
     public function has($id)
     {
-        return array_key_exists($id, $this->services);
+        return isset($this->services[$id]);
     }
 }
