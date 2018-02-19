@@ -2,8 +2,10 @@
 
 namespace Backbone\Foundation;
 
-use Exception;
 use Backbone\Facades\Facade;
+use Psr\Container\ContainerInterface;
+use Backbone\Foundation\Exceptions\ServiceNotFoundException;
+use Backbone\Foundation\Exceptions\ServiceAlreadyRegisteredException;
 
 /**
  * The application container which hosts all registered services.
@@ -11,7 +13,7 @@ use Backbone\Facades\Facade;
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class Application
+class Application implements ContainerInterface
 {
     /**
      * The array of services.
@@ -28,38 +30,42 @@ class Application
     /**
      * Registeres a service.
      *
-     * @param  string $key The sevice name
+     * @param  string $id The sevice name
      * @param  mixed $service The service instance
      * @return void
      */
-    public function register($key, $service)
+    public function register($id, $service)
     {
-        if (! $this->has($key)) {
-            $this->services[$key] = $service;
+        if (! $this->has($id)) {
+            $this->services[$id] = $service;
         } else {
-            throw new Exception("Service '{$key}' is already registered.");
+            throw new ServiceAlreadyRegisteredException("Service '{$id}' is already registered.");
         }
     }
 
     /**
      * Gets a service by key.
      *
-     * @param  string $key The service name
+     * @param  string $id The service name
      * @return mixed The service instance
      */
-    public function get($key)
+    public function get($id)
     {
-        return $this->services[$key];
+        if ($this->has($id)) {
+            return $this->services[$id];
+        } else {
+            throw new ServiceNotFoundException("The service '{$id}' has not been registered yet.");
+        }
     }
 
     /**
      * Determines if the service does already exist.
      *
-     * @param  string $key The service name
+     * @param  string $id The service name
      * @return bool Whether or not the service already exists
      */
-    public function has($key)
+    public function has($id)
     {
-        return array_key_exists($key, $this->services);
+        return array_key_exists($id, $this->services);
     }
 }

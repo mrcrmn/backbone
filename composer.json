@@ -17,7 +17,8 @@
         "duncan3dc/blade": "^4.2",
         "symfony/console": "^4.0",
         "symfony/filesystem": "^4.0",
-        "monolog/monolog": "^1.23"
+        "monolog/monolog": "^1.23",
+        "psr/container": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "^2.1"
