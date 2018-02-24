@@ -25,6 +25,13 @@ class Collector
     public $table;
 
     /**
+     * Executes dangerous queries if set to true.
+     *
+     * @var bool
+     */
+    public $withForce = false;
+
+    /**
      * The QueryBuilder Instance.
      *
      * @var \Backbone\Database\QueryBuilders\
@@ -79,6 +86,20 @@ class Collector
      * @var string
      */
     public $selectColumns;
+
+    /**
+     * The update string.
+     *
+     * @var string
+     */
+    public $updates = [];
+
+    /**
+     * The insert string.
+     *
+     * @var string
+     */
+    public $inserts = [];
 
     /**
      * Bool if the selection is disctinct.
@@ -136,9 +157,12 @@ class Collector
      */
     protected $shouldFlush = [
         'action' => null,
+        'withForce' => false,
         'table' => null,
         'paramCache' => [],
         'selectColumns' => null,
+        'updates' => [],
+        'inserts' => [],
         'isDistinct' => false,
         'joins' => [],
         'wheres' => [],
@@ -149,12 +173,19 @@ class Collector
     ];
 
     /**
+     * The string to add when a key already exists.
+     *
+     * @var string
+     */
+    protected const PARAM_ADDON = 'aaaaa';
+
+    /**
      * Connects to the Database.
      *
      * @param  string  $host
      * @param  string  $username
      * @param  string  $password
-     * @param  int $port
+     * @param  int     $port
      * @param  string  $database
      *
      * @return bool
@@ -179,15 +210,33 @@ class Collector
     /**
      * Adds a $key => $value pair to the parameter cache.
      *
-     * @param string $key   The key to cache.
+     * @param string $key       The key to cache.
      * @param int|string $value The value to cache.
      */
     private function addToParamCache($key, $value)
     {
-        $placeholder = ":" . $key;
-        $this->paramCache[$placeholder] = $value;
+        $key = ':'.$key;
+        while (array_key_exists($key, $this->paramCache)) {
+            $key = $key.self::PARAM_ADDON;
+        }
+        $this->paramCache[$key] = $value;
 
-        return $placeholder;
+        return $key;
+    }
+
+    /**
+     * Removes the : and -- from the placeholder key.
+     *
+     * @param  string $key The parameter key.
+     *
+     * @return string
+     */
+    public function getOriginalParamKey($key)
+    {
+        $key = ltrim($key, ':');
+        $key = rtrim($key, self::PARAM_ADDON);
+
+        return $key;
     }
 
     /**
@@ -201,9 +250,9 @@ class Collector
     }
 
     /**
-     * Cosntructs the full insert statement.
+     * Constructs the full insert statement.
      *
-     * @param array $array The array which holds all column names and the values to isnert.
+     * @param array $array The array which holds all column names and the values to insert.
      */
     protected function addInsertArray($array)
     {
@@ -220,9 +269,52 @@ class Collector
             throw new Exception('No table is set.');
         }
 
+        $placeholders = [];
+        $columns = array_keys($array);
+
         foreach ($array as $key => $value)
         {
-            $this->addToParamCache($key, $value);
+            $placeholders[] = $this->addToParamCache($key, $value);
+        }
+
+        $columns = implode(", ", $columns);
+        $values = implode(", ", $placeholders);
+
+        $this->inserts = [
+            'columns' => $columns,
+            'values' => $values
+        ];
+
+        $this->prepare();
+
+        return $this->run();
+    }
+
+    /**
+     * Constructs the base update statement.
+     *
+     * @param array $array The array which holds all column names and the values to update.
+     */
+    protected function addUpdateArray($array)
+    {
+        if (! is_array($array)) {
+            throw new InvalidArgumentException('You need to insert an assoc array.');
+        }
+
+        if (empty($this->table)) {
+            throw new Exception('No table is set.');
+        }
+
+        $placeholders = [];
+
+        foreach ($array as $key => $value)
+        {
+            $placeholders[] = $this->addToParamCache($key, $value);
+        }
+
+        foreach ($placeholders as $column)
+        {
+            $this->updates[] = sprintf("%s = %s", $this->getOriginalParamKey($column), $column);
         }
 
         $this->prepare();
@@ -283,7 +375,7 @@ class Collector
      * Adds a where in clause to the query.
      *
      * @param string $column  The column name.
-     * @param array $array   An array of values to search for.
+     * @param array $array    An array of values to search for.
      * @param string $boolean Whether or not this is a AND or OR subquery.
      */
     protected function addWhereIn($column, $array, $boolean)
@@ -292,13 +384,13 @@ class Collector
             $boolean = 'WHERE';
         }
 
-        $currentPlaceholders = [];
+        $placeholders = [];
 
-        for ($i=0; $i < count($array); $i++) {
-            $currentPlaceholders[] = $this->addToParamCache($column . strval($i), $array[$i]);
+        foreach ($array as $value) {
+            $placeholders[] = $this->addToParamCache($column, $value);
         }
 
-        $this->wheres[] = trim(sprintf("$boolean %s IN (%s)", $column, implode(",", $currentPlaceholders)));
+        $this->wheres[] = trim(sprintf("$boolean %s IN (%s)", $column, implode(",", $placeholders)));
     }
 
     /**
@@ -404,13 +496,13 @@ class Collector
     public function getQuery()
     {
         $base = $this->buildQuery();
-        foreach ($this->paramCache as $column => $value)
+        foreach (array_reverse($this->paramCache) as $placeholder => $value)
         {
             if (is_string($value)) {
                 $value = "'".$value."'";
             }
 
-            $base = str_replace($column, $value, $base);
+            $base = str_replace($placeholder, $value, $base);
         }
         $this->flushAll();
 

@@ -17,16 +17,28 @@ class BaseQueryBuilder
      */
     public function addInsert()
     {
-        if (! empty($this->collector->paramCache)) {
-            $columns = array_keys($this->collector->paramCache);
-            $values = implode(", ", $columns);
-            $columns = array_map(function($el) {
-                return ltrim($el, ':');
-            }, $columns);
-            $columns = implode(", ", $columns);
-        }
+        return sprintf(
+            "INSERT INTO %s (%s) VALUES (%s)",
 
-        return sprintf("INSERT INTO %s (%s) VALUES (%s)", $this->collector->table, $columns, $values);
+            $this->collector->table,
+            $this->collector->inserts['columns'],
+            $this->collector->inserts['values']
+        );
+    }
+
+    /**
+     * Returns the full insert query.
+     *
+     * @return string
+     */
+    public function addUpdate()
+    {
+        return sprintf("UPDATE %s SET %s", $this->collector->table, implode(', ', $this->collector->updates));
+    }
+
+    public function addDelete()
+    {
+        return sprintf("DELETE FROM %s", $this->collector->table);
     }
 
     /**

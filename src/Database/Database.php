@@ -60,23 +60,44 @@ class Database extends Collector
     /**
      * The beginning of the update statement.
      *
+     * @param array $array The columns and new values.
+     *
      * @return $this
      */
-    public function update()
+    public function update($array, $force = false)
     {
         $this->action = 'UPDATE';
-
-        return $this;
+        $this->withForce = $force;
+        
+        return $this->addUpdateArray($array);
     }
 
     /**
      * The beginning of the update statement.
      *
-     * @return $this
+     * @param bool $force Needs to be set to true, if you want to execute a query without any where clauses.
+     *
+     * @return $result
      */
-    public function delete()
+    public function delete($force = false)
     {
         $this->action = 'DELETE';
+        $this->withForce = $force;
+
+        $this->buildQuery();
+        $this->prepare();
+
+        return $this->run();
+    }
+
+    /**
+     * Setter for the table.
+     * @param  string $table
+     * @return $this
+     */
+    public function into($table)
+    {
+        $this->setTable($table);
 
         return $this;
     }
@@ -86,7 +107,7 @@ class Database extends Collector
      * @param  string $table
      * @return $this
      */
-    public function into($table)
+    public function table($table)
     {
         $this->setTable($table);
 
