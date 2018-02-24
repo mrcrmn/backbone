@@ -28,5 +28,5 @@ Route::get('/', function() {
 });
 
 Route::get('/param/{param}', function ($request) {
-    return $request->attributes->get('param');
+    return $request->attr('param');
 });
