@@ -61,6 +61,7 @@ class Database extends Collector
      * The beginning of the update statement.
      *
      * @param array $array The columns and new values.
+     * @param bool $force Needs to be true to update dangerous queries.
      *
      * @return $this
      */
@@ -68,7 +69,7 @@ class Database extends Collector
     {
         $this->action = 'UPDATE';
         $this->withForce = $force;
-        
+
         return $this->addUpdateArray($array);
     }
 

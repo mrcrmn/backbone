@@ -2,6 +2,7 @@
 
 namespace Backbone\Database\QueryBuilders;
 
+use Exception;
 use Backbone\Database\Collector;
 use Backbone\Database\QueryBuilders\BaseQueryBuilder;
 use Backbone\Database\QueryBuilders\QueryBuilderInterface;
@@ -41,7 +42,7 @@ class UpdateQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
     public function build()
     {
         if (count($this->collector->wheres) === 0 && ! $this->collector->withForce) {
-            throw new Exception('You need to use force mode to execute dangerous queries. ->update($array, $force = true)')
+            throw new Exception('You need to use force mode to execute dangerous queries. ->update($array, $force = true)');
         }
         $this->query = $this->addUpdate();
         $this->query .= $this->addWheres();

@@ -36,6 +36,11 @@ class BaseQueryBuilder
         return sprintf("UPDATE %s SET %s", $this->collector->table, implode(', ', $this->collector->updates));
     }
 
+    /**
+     * Adds the delete base query.
+     *
+     * @return string
+     */
     public function addDelete()
     {
         return sprintf("DELETE FROM %s", $this->collector->table);
