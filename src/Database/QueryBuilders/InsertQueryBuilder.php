@@ -2,7 +2,9 @@
 
 namespace Backbone\Database\QueryBuilders;
 
+use Backbone\Database\Collector;
 use Backbone\Database\QueryBuilders\BaseQueryBuilder;
+use Backbone\Database\QueryBuilders\QueryBuilderInterface;
 
 /**
  * Constructs an insert query.
@@ -10,43 +12,36 @@ use Backbone\Database\QueryBuilders\BaseQueryBuilder;
  * @package Backbone
  * @author Marco Reimann <marcoreimann@outlook.de>
  */
-class InsertQueryBuilder extends BaseQueryBuilder
+class InsertQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterface
 {
+    /**
+     * The connection instance.
+     *
+     * @var \Backbone\Database\Collector
+     */
+    protected $collector;
 
     /**
-     * The table where the data should be inserted.
+     * The query.
+     *
      * @var string
      */
-    protected $table;
+    public $query;
 
-    protected $array;
-
-    protected $keys;
-
-    public $values;
-
-    public $statement;
-
-    protected $columnString;
-
-    protected $paramString;
-
-    public $unboundParameters;
-
-    public function __construct(string $table, array $array)
+    /**
+     * The constructor needs all parameters which have been collected by the public API.
+     *
+     * @param Collector $collector
+     */
+    public function __construct(Collector $collector)
     {
-        $this->table = $table;
-        $this->array = $array;
-        $this->keys = array_keys($array);
-        $this->values = array_values($array);
+        $this->collector = $collector;
+    }
 
-        $this->statement = "INSERT INTO %s (%s) VALUES (%s)";
+    public function build()
+    {
+        $this->query = $this->addInsert();
 
-        $this->columnString = $this->stringifyArray($this->keys);
-        $this->paramString = $this->stringifyArray($this->keys, ':');
-
-        $this->unboundParameters = $this->parameterizeKeys($this->keys);
-
-        $this->statement = sprintf($this->statement, $this->table, $this->columnString, $this->paramString);
+        return $this->query;
     }
 }

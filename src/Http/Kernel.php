@@ -66,8 +66,8 @@ class Kernel
             return $this->abort(Response::HTTP_METHOD_NOT_ALLOWED, $e->getMessage());
         }
 
+        $content = ControllerResolver::resolve($routeInfo[1], $this->request);
         try {
-            $content = ControllerResolver::resolve($routeInfo[1], $this->request);
 
             if ($content instanceof Response) {
                 return $content;

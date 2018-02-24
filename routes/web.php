@@ -1,6 +1,6 @@
 <?php
 
-use Backbone\Http\Response;
+use Backbone\Services\DB;
 use Backbone\Services\Route;
 
 /*
@@ -15,11 +15,17 @@ use Backbone\Services\Route;
  |
  */
 
-Route::get('/redirect', function () {
-    return redirect('/');
+Route::get('/db', function() {
+    dd(DB::into('test')->insert([
+        'foo' => 'marco',
+        'baz' => 'reimann',
+        'bar' => 'polo'
+    ]));
 });
 
-Route::view('/', 'example');
+Route::get('/', function() {
+    return strval(phpinfo());
+});
 
 Route::get('/param/{param}', function ($request) {
     return $request->attributes->get('param');

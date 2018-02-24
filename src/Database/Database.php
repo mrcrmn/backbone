@@ -29,15 +29,15 @@ class Database extends Collector
     /**
      * Builds the insert statement. Accepts an assoc array [$key => $value].
      *
-     * @param  array $values
+     * @param  array $array
      *
      * @return $this
      */
-    public function insert($values)
-    {
+    public function insert($array)
+     {
         $this->action = 'INSERT';
 
-        return $this;
+        return $this->addInsertArray($array);
     }
 
     /**
@@ -96,6 +96,7 @@ class Database extends Collector
     /**
      * Setter for the table.
      * @param  string $table
+     *
      * @return $this
      */
     public function from($table)
@@ -279,11 +280,6 @@ class Database extends Collector
         return $this;
     }
 
-    public function getQuery()
-    {
-        return $this->buildQuery();
-    }
-
     /**
      * Gets an array after the select statement is executed.
      *
@@ -291,7 +287,7 @@ class Database extends Collector
      */
     public function get()
     {
-        if (empty($this->connection)) {
+        if (! $this->isConnected()) {
             return $this->getQuery();
         }
 

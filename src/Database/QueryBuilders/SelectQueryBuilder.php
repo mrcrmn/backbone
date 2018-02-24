@@ -2,11 +2,10 @@
 
 namespace Backbone\Database\QueryBuilders;
 
-use \Exception;
+use Exception;
+use Backbone\Database\Collector;
 use Backbone\Database\QueryBuilders\BaseQueryBuilder;
 use Backbone\Database\QueryBuilders\QueryBuilderInterface;
-use Backbone\Database\Database;
-
 /**
  * Constructs a select query.
  *
@@ -19,9 +18,9 @@ class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
     /**
      * The connection instance.
      *
-     * @var \Backbone\Database\Database
+     * @var \Backbone\Database\Collector
      */
-    protected $db;
+    protected $collector;
 
     /**
      * The query.
@@ -33,11 +32,11 @@ class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
     /**
      * The constructor needs all parameters which have been collected by the public API.
      *
-     * @param Database $db
+     * @param Collector $collector
      */
-    public function __construct(Database $db)
+    public function __construct(Collector $collector)
     {
-        $this->db = $db;
+        $this->db = $collector;
     }
 
     /**
@@ -47,11 +46,11 @@ class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
      */
     public function addBaseSelect()
     {
-        if (empty($this->db->selectColumns)) {
+        if (empty($this->collector->selectColumns)) {
             throw new Exception('Nothing to Select.');
         }
 
-        if (empty($this->db->table)) {
+        if (empty($this->collector->table)) {
             throw new Exception('No table selected.');
         }
 

@@ -10,54 +10,106 @@ namespace Backbone\Database\QueryBuilders;
 */
 class BaseQueryBuilder
 {
+    /**
+     * Returns the full insert query.
+     *
+     * @return string
+     */
+    public function addInsert()
+    {
+        if (! empty($this->collector->paramCache)) {
+            $columns = array_keys($this->collector->paramCache);
+            $values = implode(", ", $columns);
+            $columns = array_map(function($el) {
+                return ltrim($el, ':');
+            }, $columns);
+            $columns = implode(", ", $columns);
+        }
+
+        return sprintf("INSERT INTO %s (%s) VALUES (%s)", $this->collector->table, $columns, $values);
+    }
+
+    /**
+     * Adds a select distinct subquery.
+     */
     public function addDistinct()
     {
-        if ($this->db->isDistinct) {
+        if ($this->collector->isDistinct) {
             return " DISTINCT";
         }
     }
 
+    /**
+     * Returns all where subqueries.
+     *
+     * @return string
+     */
     public function addWheres()
     {
-        if (! empty($this->db->wheres)) {
-            return " " . implode(" ", $this->db->wheres);
+        if (! empty($this->collector->wheres)) {
+            return " " . implode(" ", $this->collector->wheres);
         }
     }
 
+    /**
+     * Returns all group by subqueries.
+     *
+     * @return string
+     */
     public function addGroupBys()
     {
-        if (! empty($this->db->groupyBys)) {
-            return " " . implode(" ", $this->db->groupyBys);
+        if (! empty($this->collector->groupyBys)) {
+            return " " . implode(" ", $this->collector->groupyBys);
         }
     }
 
+    /**
+     * Returns all order by subqueries.
+     *
+     * @return string
+     */
     public function addOrderBys()
     {
-        if (! empty($this->db->orderBys)) {
-            return " ORDER BY " . implode(", ", $this->db->orderBys);
+        if (! empty($this->collector->orderBys)) {
+            return " ORDER BY " . implode(", ", $this->collector->orderBys);
         }
     }
 
+    /**
+     * Adds all jouns to the query.
+     *
+     * @return string
+     */
     public function addJoins()
     {
-        $joins = $this->db->joins;
+        $joins = $this->collector->joins;
 
         if (! empty($joins)) {
             return " " . implode(" ", $joins);
         }
     }
 
+    /**
+     * Adds the limit to the query.
+     *
+     * @return string
+     */
     public function addLimit()
     {
-        if (isset($this->db->limit)) {
-            return " LIMIT " . $this->db->limit;
+        if (isset($this->collector->limit)) {
+            return " LIMIT " . $this->collector->limit;
         }
     }
 
+    /**
+     * Adds the offset to the query.
+     *
+     * @return string
+     */
     public function addOffset()
     {
-        if (isset($this->db->offset)) {
-            return " OFFSET " . $this->db->offset;
+        if (isset($this->collector->offset)) {
+            return " OFFSET " . $this->collector->offset;
         }
     }
 }
