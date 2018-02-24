@@ -11,10 +11,12 @@
 
 namespace Backbone\Database\Connectors;
 
+use PDO;
+
 /**
 * The Mysql Database Conncetor.
 */
-class DatabaseConnection extends \PDO
+class DatabaseConnection extends PDO
 {
     /**
      * The database driver.

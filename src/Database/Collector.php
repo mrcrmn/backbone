@@ -173,7 +173,7 @@ class Collector
      */
     public function isConnected()
     {
-        return $this->prepared instanceof Preparer;
+        return $this->preparer instanceof Preparer;
     }
 
     /**

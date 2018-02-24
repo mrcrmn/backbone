@@ -36,7 +36,7 @@ class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
      */
     public function __construct(Collector $collector)
     {
-        $this->db = $collector;
+        $this->collector = $collector;
     }
 
     /**
@@ -55,7 +55,7 @@ class SelectQueryBuilder extends BaseQueryBuilder implements QueryBuilderInterfa
         }
 
         // 1. %s-> DISTINCT; 2. %s->column_1, column_2; 3. %s-> table_name
-        return sprintf("SELECT%s %s FROM %s", $this->addDistinct(), $this->db->selectColumns, $this->db->table);
+        return sprintf("SELECT%s %s FROM %s", $this->addDistinct(), $this->collector->selectColumns, $this->collector->table);
     }
 
     /**

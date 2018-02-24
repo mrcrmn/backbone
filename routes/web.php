@@ -16,11 +16,7 @@ use Backbone\Services\Route;
  */
 
 Route::get('/db', function() {
-    dd(DB::into('test')->insert([
-        'foo' => 'marco',
-        'baz' => 'reimann',
-        'bar' => 'polo'
-    ]));
+    return var_dump(DB::select()->from('test')->where('foo', 'marco')->get());
 });
 
 Route::get('/', function() {
