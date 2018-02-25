@@ -2,8 +2,8 @@
 
 namespace Backbone\Services;
 
+use Mrcrmn\Mysql\Database;
 use Backbone\Services\Service;
-use Backbone\Database\Database;
 
 /**
  * The database Service.

@@ -16,7 +16,7 @@ use Backbone\Services\Route;
  */
 
 Route::get('/db', function() {
-    return var_dump(DB::table('test')->delete());
+
 });
 
 Route::get('/', function() {

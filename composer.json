@@ -18,7 +18,8 @@
         "symfony/console": "^4.0",
         "symfony/filesystem": "^4.0",
         "monolog/monolog": "^1.23",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0",
+        "mrcrmn/mysql": "^0.1"
     },
     "require-dev": {
         "filp/whoops": "^2.1"
